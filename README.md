@@ -4,7 +4,7 @@ Main UI Project for Algodex. This is a [Next.js](https://nextjs.org/) project bo
 
 ## Getting Started
 
-### Set up a Github token to make it easy to install the private algodex-sdk npm package.
+### Set up a Github token to make it easy to install the private sdk npm package.
 
 https://github.com/settings/tokens
 
