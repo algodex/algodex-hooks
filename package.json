@@ -155,6 +155,78 @@
     "snowpack": "^3.8.8",
     "tailwindcss": "^2.2.19"
   },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 100,
+    "trailingComma": "none"
+  },
+  "jest": {
+    "setupFilesAfterEnv": ["./test/jest.setup.js"],
+    "moduleDirectories": ["node_modules", "<rootDir>"],
+    "testEnvironment": "jsdom",
+    "moduleNameMapper": {
+      "^components(.*)$": "<rootDir>/components$1",
+      "^lib(.*)$": "<rootDir>/lib$1",
+      "^theme(.*)$": "<rootDir>/theme$1"
+    },
+    "transformIgnorePatterns": ["node_modules/(?!(lightweight-charts|fancy-canvas)/)"]
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "amd": true,
+      "node": true,
+      "es2021": true,
+      "jest": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended",
+      "plugin:jsx-a11y/recommended",
+      "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 12,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "react"
+    ],
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    },
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "endOfLine": "auto"
+        },
+        { "usePrettierrc": true }
+      ],
+      "react/react-in-jsx-scope": "off",
+      "jsx-a11y/anchor-is-valid": [
+        "error",
+        {
+          "components": [
+            "Link"
+          ],
+          "specialLink": [
+            "hrefLeft", "hrefRight"
+          ],
+          "aspects": [
+            "invalidHref", "preferButton"
+          ]
+        }
+      ]
+    }
+  },
   "bundlesize": [
     {
       "path": "./dist/components.js",
