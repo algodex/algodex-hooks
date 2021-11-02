@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { HeaderSm, BodyCopySm } from 'components/type'
+import { HeaderSm, BodyCopySm } from 'packages/components/src/type'
 
 export const Container = styled.div`
   position: relative;

@@ -3,18 +3,19 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 import { fetchAssetById } from 'lib/api'
+import useTranslation from 'next-translate/useTranslation'
 import { fetchOrdersInEscrow } from 'lib/api'
 import WalletService from 'services/wallet'
-import MainLayout from 'components/main-layout'
-import Header from 'components/header'
-import Spinner from 'components/spinner'
-import Error from 'components/error'
+import MainLayout from '../../src/main-layout'
+import Header from '../../src/header'
+import Spinner from '../../src/spinner'
+import Error from '../../src/error'
 import useMyAlgo from 'hooks/use-my-algo'
 import useStore, { useStorePersisted } from 'store/use-store'
-import { checkTestnetAccess } from 'lib/api'
+// import { checkTestnetAccess } from 'lib/api'
 import Cookies from 'cookies'
 
-import { Container, StatusContainer } from 'styles/trade.css'
+// import { Container, StatusContainer } from '../styles/trade.css'
 
 export default function Home() {
   const router = useRouter()
@@ -147,16 +148,16 @@ export default function Home() {
 
     if (isLoading) {
       return (
-        <StatusContainer>
+        <div>
           <Spinner flex />
-        </StatusContainer>
+        </div>
       )
     }
     if (isError) {
       return (
-        <StatusContainer>
+        <div>
           <Error message="Error loading exchange data" flex />
-        </StatusContainer>
+        </div>
       )
     }
 
@@ -164,7 +165,7 @@ export default function Home() {
   }
 
   return (
-    <Container>
+    <div>
       <Head>
         <title>
           {asset?.name && `${asset.name} to ALGO `}Algodex | Algorand Decentralized Exchange
@@ -172,9 +173,9 @@ export default function Home() {
         <meta name="description" content="Decentralized exchange for trading Algorand ASAs" />
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"></meta>
       </Head>
-      <Header />
+      <Header useRouter={useRouter} useTranslation={useTranslation} />
       {renderDashboard()}
-    </Container>
+    </div>
   )
 }
 
