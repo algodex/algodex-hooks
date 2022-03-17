@@ -1,4 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+.snowpack
 cypress/videos
 cypress/screenshots
 
@@ -44,9 +45,6 @@ yarn-error.log*
 
 # VS Code workspace
 *.code-workspace
-
-# NPM Config for Algodex private repo
-.npmrc
 
 # Remove package lock
 package-lock.json
