@@ -2,11 +2,33 @@ import {useMemo} from 'react';
 import {useQuery} from 'react-query';
 import {fetchAssetChart} from '@/services/algodex.js';
 import millify from 'millify';
-import useAssetOrdersQuery from '@/hooks/useAssetOrdersQuery';
+import useAssetOrdersQuery from '@/http/useAssetOrdersQuery';
 import {floatToFixed} from '@/services/display.js';
 import Big from 'big.js';
 
 const refetchInterval = 3000;
+import withQuery from '@/util/withQuery';
+import Spinner from '@/components/Spinner';
+import ServiceError from '@/components/ServiceError';
+
+const components = {
+  Loading: Spinner,
+  ServiceError,
+};
+
+/**
+ *
+ * @param {JSX.Element} Component
+ * @param {object} options
+ * @return {JSX.Element}
+ */
+export function withAssetChartQuery(Component, options) {
+  return withQuery(Component, {
+    hook: useAssetChartQuery,
+    components,
+    ...options,
+  });
+}
 
 /**
  *

@@ -2,6 +2,28 @@ import {useQuery} from 'react-query';
 import {searchAssets} from '@/services/algodex.js';
 
 const refetchInterval = 3000;
+import withQuery from '@/util/withQuery';
+import Spinner from '@/components/Spinner';
+import ServiceError from '@/components/ServiceError';
+
+const components = {
+  Loading: Spinner,
+  ServiceError,
+};
+
+/**
+ * With Search Results Query
+ * @param {JSX.Element| Function} Component Component to wrap
+ * @param {Object} [options] Options to pass to withQuery
+ * @return {JSX.Element}
+ */
+export function withSearchResultsQuery(Component, options) {
+  return withQuery(Component, {
+    hook: useSearchResultsQuery,
+    components,
+    ...options,
+  });
+}
 
 /**
  * Use Search Results Query

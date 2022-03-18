@@ -5,7 +5,28 @@ import dayjs from 'dayjs';
 import {floatToFixed} from '@/services/display.js';
 
 // const refetchInterval = 3000;
+import withQuery from '@/util/withQuery';
+import Spinner from '@/components/Spinner';
+import ServiceError from '@/components/ServiceError';
 
+const components = {
+  Loading: Spinner,
+  ServiceError,
+};
+
+/**
+ *
+ * @param {JSX.Element} Component
+ * @param {object} options
+ * @return {JSX.Element}
+ */
+export function withWalletOrdersQuery(Component, options) {
+  return withQuery(Component, {
+    hook: useWalletOrdersQuery,
+    components,
+    ...options,
+  });
+}
 /**
  *
  * @param {object} data
@@ -76,7 +97,10 @@ export function mapOpenOrdersData(data) {
  * @param {Object} [props.options] useQuery Options
  * @return {object}
  */
-export function useWalletOrdersQuery({wallet, options = {refetchInterval}}) {
+export default function useWalletOrdersQuery({
+  wallet,
+  options = {refetchInterval},
+}) {
   const {address} = wallet;
   const {data, ...rest} = useQuery(
       ['walletOrders', {address}],

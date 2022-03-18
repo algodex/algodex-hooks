@@ -5,6 +5,28 @@ import {fetchWalletTradeHistory} from '@/services/algodex.js';
 import {useMemo} from 'react';
 
 const refetchInterval = 3000;
+import withQuery from '@/util/withQuery';
+import Spinner from '@/components/Spinner';
+import ServiceError from '@/components/ServiceError';
+
+const components = {
+  Loading: Spinner,
+  ServiceError,
+};
+
+/**
+ *
+ * @param {JSX.Element} Component
+ * @param {object} options
+ * @return {JSX.Element}
+ */
+export function withWalletTradeHistoryQuery(Component, options) {
+  return withQuery(Component, {
+    hook: useWalletTradeHistoryQuery,
+    components,
+    ...options,
+  });
+}
 
 /**
  * Use Wallet Trade History
@@ -14,7 +36,7 @@ const refetchInterval = 3000;
  * @param {Object} [props.options] useQuery Options
  * @return {object}
  */
-export function useWalletTradeHistoryQuery({
+export default function useWalletTradeHistoryQuery({
   wallet,
   options = {
     refetchInterval,

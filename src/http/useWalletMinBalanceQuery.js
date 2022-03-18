@@ -2,7 +2,14 @@ import {useQuery} from 'react-query';
 import WalletService from '@/services/wallet.js';
 
 // const refetchInterval = 3000;
-
+// import withQuery from '@/util/withQuery';
+// import Spinner from '@/components/Spinner';
+// import ServiceError from '@/components/ServiceError';
+//
+// const components = {
+//   Loading: Spinner,
+//   ServiceError,
+// };
 /**
  * Use Wallet Minimum Balance Query
  * @param {Object} props The props of the parent
@@ -10,7 +17,7 @@ import WalletService from '@/services/wallet.js';
  * @param {Object} [props.options] useQuery Options
  * @return {object}
  */
-export function useWalletMinBalanceQuery({
+export default function useWalletMinBalanceQuery({
   wallet,
   options = {
     enabled: typeof wallet !== 'undefined' &&

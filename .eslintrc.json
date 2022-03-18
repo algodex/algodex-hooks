@@ -1,5 +1,5 @@
 {
-  "ignorePatterns": ["**/services/**/*.js","**/assets/**/*.svg"],
+  "ignorePatterns": ["**/services/**/*.js","**/assets/**/*.svg", "**/dist/**/*.*"],
   "env": {
     "browser": true,
     "es2021": true,

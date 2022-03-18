@@ -5,6 +5,27 @@ import {floatToFixed} from '@/services/display.js';
 import {calculateAsaBuyAmount} from '@/services/convert.js';
 
 const refetchInterval = 3000;
+import withQuery from '@/util/withQuery';
+import Spinner from '@/components/Spinner';
+import ServiceError from '@/components/ServiceError';
+
+const components = {
+  Loading: Spinner,
+  ServiceError,
+};
+/**
+ *
+ * @param {JSX.Element} Component
+ * @param {object} options
+ * @return {JSX.Element}
+ */
+export function withAssetOrderbookQuery(Component, options) {
+  return withQuery(Component, {
+    hook: useAssetOrderbookQuery,
+    components,
+    ...options,
+  });
+}
 
 /**
  * @todo aggregate Orders in the API

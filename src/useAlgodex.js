@@ -1,7 +1,7 @@
 import {useCallback, useContext} from 'react';
-import AlgodexContext from '@/components/AlgodexContext.jsx';
-import useMyAlgo from '@/hooks/useMyAlgo.js';
-import useWatch from '@/hooks/useWatch.js';
+import AlgodexContext from '@/components/AlgodexContext.js';
+import useMyAlgo from '@/wallet/useMyAlgo.js';
+import useWatch from '@/util/useWatch.js';
 
 /**
  * @typedef {Object} AlgodexAPIHook

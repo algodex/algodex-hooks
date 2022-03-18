@@ -3,7 +3,28 @@ import {fetchWalletAssets} from '@/services/algodex.js';
 import {useMemo} from 'react';
 
 const refetchInterval = 3000;
+import withQuery from '@/util/withQuery';
+import Spinner from '@/components/Spinner';
+import ServiceError from '@/components/ServiceError';
 
+const components = {
+  Loading: Spinner,
+  ServiceError,
+};
+
+/**
+ *
+ * @param {JSX.Element} Component
+ * @param {object} options
+ * @return {JSX.Element}
+ */
+export function withWalletAssetsQuery(Component, options) {
+  return withQuery(Component, {
+    hook: useWalletAssetsQuery,
+    components,
+    ...options,
+  });
+}
 /**
  * @deprecated
  * @param {object} data

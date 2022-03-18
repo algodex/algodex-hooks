@@ -13,7 +13,7 @@ import {isUndefined} from 'lodash/lang';
  * @param {object} options.components Hook Components
  * @return {JSX.Element} Return a composed component
  */
-export function withQuery(Component, {hook = useQuery, components}) {
+export default function withQuery(Component, {hook = useQuery, components}) {
   if (
     isUndefined(components) ||
     isUndefined(components.Loading) ||
@@ -39,5 +39,3 @@ export function withQuery(Component, {hook = useQuery, components}) {
 
   return withQueryWrapper;
 }
-
-export default withQuery;

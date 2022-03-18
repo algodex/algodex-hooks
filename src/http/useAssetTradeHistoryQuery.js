@@ -3,6 +3,27 @@ import {fetchAssetTradeHistory} from '@/services/algodex.js';
 import {floatToFixed} from '@/services/display.js';
 
 // const refetchInterval = 3000;
+import withQuery from '@/util/withQuery';
+import Spinner from '@/components/Spinner';
+import ServiceError from '@/components/ServiceError';
+
+const components = {
+  Loading: Spinner,
+  ServiceError,
+};
+/**
+ *
+ * @param {JSX.Element} Component React Component
+ * @param {object} [options] Extra options for hooks
+ * @return {JSX.Element}
+ */
+export function withAssetTradeHistoryQuery(Component, options) {
+  return withQuery(Component, {
+    hook: useAssetTradeHistoryQuery,
+    components,
+    ...options,
+  });
+}
 
 /**
  * Use Asset Trade History Query
@@ -11,7 +32,7 @@ import {floatToFixed} from '@/services/display.js';
  * @param {Object} [props.options] useQuery Options
  * @return {object} Massaged React-Query
  */
-export function useAssetTradeHistoryQuery({
+export default function useAssetTradeHistoryQuery({
   asset,
   options = {
     refetchInterval: 5000,
