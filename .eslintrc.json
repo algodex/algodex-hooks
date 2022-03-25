@@ -20,6 +20,7 @@
     "react"
   ],
   "rules": {
+    "linebreak-style": "off",
     "camelcase": "warn"
   }
 }
