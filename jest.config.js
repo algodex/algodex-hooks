@@ -1,7 +1,6 @@
-module.exports = {
-  globalSetup: './jest.setup.js',
-  testEnvironment: 'jsdom',
-  collectCoverage: true,
+export default {
+  // globalSetup: './jest.setup.js',
+  testEnvironment: 'node',
   coverageThreshold: {
     // TODO: Raise confidence
     global: {
