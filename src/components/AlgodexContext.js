@@ -1,14 +1,21 @@
-import React from 'react';
+import React, {createContext, useMemo} from 'react';
 import PropTypes from 'prop-types';
-import AlgodexAPI from '@algodex/algodex-sdk';
-import {createContext, useMemo} from 'react';
+import AlgodexApi from '@algodex/algodex-sdk/lib/AlgodexApi';
 
+/**
+ * @typedef import('@algodex/algodex-sdk')
+ */
+
+/**
+ *
+ * @type {React.Context<{}>}
+ */
 const AlgodexAPIContext = createContext({});
 
 /**
  *
  * @param {Object} props Component Properties
- * @param {AlgodexAPI} props.dex The AlgodexAPI Instance
+ * @param {AlgodexApi} props.dex The AlgodexAPI Instance
  * @param {JSX.Element} [props.children] Component Children
  * @return {JSX.Element}
  */
@@ -26,6 +33,6 @@ Provider.propTypes = {
   /**
    * Instance of a AlgodexAPI
    */
-  dex: PropTypes.instanceOf(AlgodexAPI),
+  dex: PropTypes.instanceOf(AlgodexApi),
 };
 export default AlgodexAPIContext;
