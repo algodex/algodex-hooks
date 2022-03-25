@@ -31,8 +31,8 @@ export default function withQuery(Component, {hook = useQuery, components}) {
   function withQueryWrapper(props) {
     const {isSuccess, isLoading, isError, data, error} = hook(props);
     if (isSuccess) return <Component {...props} {...data} />;
-    if (isLoading) return <Loading {...props} />;
-    if (isError) return <ServiceError message={error.message} />;
+    if (isLoading) return <Loading {...props} {...data} />;
+    if (isError) return <ServiceError {...data} message={error.message} />;
   }
 
   withQueryWrapper.getInitialProps = Component.getInitialProps;

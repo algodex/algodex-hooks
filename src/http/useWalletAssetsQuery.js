@@ -7,6 +7,10 @@ import withQuery from '@/util/withQuery';
 import Spinner from '@/components/Spinner';
 import ServiceError from '@/components/ServiceError';
 
+/**
+ *
+ * @type {{ServiceError, Loading}}
+ */
 const components = {
   Loading: Spinner,
   ServiceError,

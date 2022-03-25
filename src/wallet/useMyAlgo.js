@@ -5,22 +5,22 @@ const ERROR = {
   FAILED_TO_CONNECT: 'MyAlgo Wallet failed to connect.',
 };
 /**
- *
+ * @param {string} type Wallet Type
  * @return {object}
  */
-export default function useMyAlgo() {
+export default function useWallets(type='my-algo-wallet') {
   const [addresses, setAddresses] = useState();
 
-  const myAlgoWallet = useRef();
+  const connector = useRef();
 
   const connect = async () => {
     try {
-      if (!myAlgoWallet.current) {
+      if (!connector.current) {
         console.error(ERROR.FAILED_TO_INIT);
         return;
       }
 
-      const accounts = await myAlgoWallet.current.connect();
+      const accounts = await connector.current.connect();
       const _addresses = accounts.map((acct) => acct.address);
       setAddresses(_addresses);
     } catch (e) {
@@ -29,13 +29,15 @@ export default function useMyAlgo() {
   };
 
   useEffect(() => {
-    const initMyAlgoWallet = async () => {
-      // imported dynamically because it uses the window object
-      const MyAlgoWallet = (await import('@randlabs/myalgo-connect')).default;
-      myAlgoWallet.current = new MyAlgoWallet();
+    const initWallet = async () => {
+      const pkg = type === 'my-algo-wallet' ?
+        '@algodex/algodex-sdk/lib/wallet/connectors/MyAlgoConnect' :
+        '@algodex/algodex-sdk/lib/wallet/connectors/WalletConnect';
+
+      connector.current = await import(pkg);
     };
 
-    initMyAlgoWallet();
+    initWallet();
   }, []);
 
   return {

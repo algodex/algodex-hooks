@@ -1,15 +1,17 @@
 import {useMemo} from 'react';
 import {useQuery} from 'react-query';
-import {fetchAssetChart} from '@/services/algodex.js';
+
 import millify from 'millify';
-import useAssetOrdersQuery from '@/http/useAssetOrdersQuery';
-import {floatToFixed} from '@/services/display.js';
+
 import Big from 'big.js';
 
 const refetchInterval = 3000;
-import withQuery from '@/util/withQuery';
-import Spinner from '@/components/Spinner';
-import ServiceError from '@/components/ServiceError';
+import withQuery from '../util/withQuery';
+import Spinner from '../components/Spinner';
+import ServiceError from '../components/ServiceError';
+import useAssetOrdersQuery from './useAssetOrdersQuery';
+import {floatToFixed} from '../services/display.js';
+import useAlgodex from '../useAlgodex.js';
 
 const components = {
   Loading: Spinner,
@@ -130,13 +132,15 @@ export function getBidAskSpread(orderBook) {
  * @param {Object} [props.options] useQuery Options
  * @return {object}
  */
-export default function useAssetChartQuery({
+export function useAssetChartQuery({
   interval,
   asset,
   options = {
     refetchInterval,
   },
 }) {
+  const {http} = useAlgodex();
+  const {dexd: {fetchAssetChart}} = http;
   // console.log(`useAssetChartQuery(${JSON.stringify({ interval, asset })})`)
   const {id} = asset;
   const {

@@ -1,13 +1,14 @@
 import {useEffect, useState} from 'react';
 import {useQuery} from 'react-query';
-import {fetchAssetOrders} from '@/services/algodex.js';
-import {floatToFixed} from '@/services/display.js';
-import {calculateAsaBuyAmount} from '@/services/convert.js';
+import floatToFixed from '@algodex/algodex-sdk/lib/utils/format/floatToFixed';
+import calculateAsaBuyAmount from
+  '@algodex/algodex-sdk/lib/utils/calc/toAlgoAmount';
 
 const refetchInterval = 3000;
-import withQuery from '@/util/withQuery';
-import Spinner from '@/components/Spinner';
-import ServiceError from '@/components/ServiceError';
+import withQuery from '../util/withQuery';
+import Spinner from '../components/Spinner';
+import ServiceError from '../components/ServiceError';
+import useAlgodex from '../useAlgodex.js';
 
 const components = {
   Loading: Spinner,
@@ -88,13 +89,14 @@ function aggregateOrders(orders, asaDecimals, type) {
  * @param {Object} [props.options] useQuery Options
  * @return {object} React Query Results
  */
-export default function useAssetOrderbookQuery({
+export function useAssetOrderbookQuery({
   asset,
   options = {
     refetchInterval,
   },
 } = {}) {
-  // console.log(`useAssetOrderbookQuery(${JSON.stringify({ asset })})`)
+  console.log(`useAssetOrderbookQuery(${JSON.stringify({asset})})`);
+  const {http} = useAlgodex();
   const {id, decimals} = asset;
   const [sell, setSellOrders] = useState([]);
   const [buy, setBuyOrders] = useState([]);
@@ -102,7 +104,7 @@ export default function useAssetOrderbookQuery({
   // Orderbook Query
   const {data, isLoading, ...rest} = useQuery(
       ['assetOrders', {id}],
-      () => fetchAssetOrders(id),
+      () => http.dexd.fetchAssetOrders(id),
       options,
   );
 
@@ -126,3 +128,5 @@ export default function useAssetOrderbookQuery({
   // Return OrderBook
   return {data: {orders: {sell, buy}, isLoading}, isLoading, ...rest};
 }
+
+export default useAssetOrderbookQuery;

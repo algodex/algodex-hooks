@@ -1,10 +1,10 @@
 import {useQuery} from 'react-query';
-import {fetchAssetOrders} from '@/services/algodex.js';
 
 // const refetchInterval = 3000;
-import withQuery from '@/util/withQuery';
-import Spinner from '@/components/Spinner';
-import ServiceError from '@/components/ServiceError';
+import withQuery from '../util/withQuery';
+import Spinner from '../components/Spinner';
+import ServiceError from '../components/ServiceError';
+import useAlgodex from '../useAlgodex.js';
 
 const components = {
   Loading: Spinner,
@@ -32,7 +32,7 @@ export function withAssetOrdersQuery(Component, options) {
  * @return {UseQueryResult<Object, unknown>}
  */
 export default function useAssetOrdersQuery({asset, options = {}}) {
-  // console.log(`useAssetOrdersQuery(${JSON.stringify({ asset })})`)
+  const {http: {dexd: {fetchAssetOrders}}} = useAlgodex();
   const {id} = asset;
   return useQuery(['assetOrders', {id}], () => fetchAssetOrders(id), options);
 }
