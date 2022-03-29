@@ -41,10 +41,13 @@ jobs:
     runs-on: ubuntu-latest
     if: (github.ref == 'refs/heads/main' &&  github.event_name != 'pull_request')
     needs: [jest]
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
       - name: Install dependencies
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_TOKEN }}" >> ~/.npmrc
@@ -54,3 +57,6 @@ jobs:
           NPM_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Run Release
         run: yarn release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
