@@ -1,6 +1,6 @@
 import React, {createContext, useMemo} from 'react';
 import PropTypes from 'prop-types';
-import AlgodexApi from '@algodex/algodex-sdk';
+import AlgodexApi from '@algodex/algodex-sdk/lib/AlgodexApi.js';
 
 /**
  * @typedef import('@algodex/algodex-sdk')

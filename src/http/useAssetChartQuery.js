@@ -1,17 +1,15 @@
+import Big from 'big.js';
+import ServiceError from '../components/ServiceError';
+import Spinner from '../components/Spinner';
+import floatToFixed from '@algodex/algodex-sdk/lib/utils/format/floatToFixed';
+import millify from 'millify';
+import useAlgodex from '../useAlgodex.js';
+import useAssetOrdersQuery from './useAssetOrdersQuery';
 import {useMemo} from 'react';
 import {useQuery} from 'react-query';
-
-import millify from 'millify';
-
-import Big from 'big.js';
+import withQuery from '../utils/withQuery';
 
 const refetchInterval = 3000;
-import withQuery from '../utils/withQuery';
-import Spinner from '../components/Spinner';
-import ServiceError from '../components/ServiceError';
-import useAssetOrdersQuery from './useAssetOrdersQuery';
-import {floatToFixed} from '../services/display.js';
-import useAlgodex from '../useAlgodex.js';
 
 const components = {
   Loading: Spinner,
@@ -140,7 +138,6 @@ export function useAssetChartQuery({
   },
 }) {
   const {http} = useAlgodex();
-  const {dexd: {fetchAssetChart}} = http;
   // console.log(`useAssetChartQuery(${JSON.stringify({ interval, asset })})`)
   const {id} = asset;
   const {
@@ -167,10 +164,11 @@ export function useAssetChartQuery({
     isLoading: isChartLoading,
     isError: isChartError,
     data,
+    isSuccess,
     ...rest
   } = useQuery(
       ['assetChart', {id, interval}],
-      () => fetchAssetChart(id, interval),
+      () => http.dexd.fetchAssetChart(id, interval),
       options,
   );
 
@@ -208,6 +206,7 @@ export function useAssetChartQuery({
     },
     isLoading,
     isError,
+    isSuccess,
     ...rest,
   };
 }
