@@ -6,7 +6,7 @@ import millify from 'millify';
 import Big from 'big.js';
 
 const refetchInterval = 3000;
-import withQuery from '../util/withQuery';
+import withQuery from '../utils/withQuery';
 import Spinner from '../components/Spinner';
 import ServiceError from '../components/ServiceError';
 import useAssetOrdersQuery from './useAssetOrdersQuery';
