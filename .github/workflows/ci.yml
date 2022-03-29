@@ -41,6 +41,8 @@ jobs:
           ref: ⚗-hooks-integration
           path: ./node_modules/@algodex/algodex-sdk
           token: ${{ secrets.GH_TOKEN }}
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
       - run: yarn
       - name: Run Unit Tests
         run: yarn test-unit
