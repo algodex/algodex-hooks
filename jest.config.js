@@ -9,6 +9,7 @@ module.exports = {
   },
   collectCoverageFrom: [
     '**/src/**/*.{js,jsx}',
+    '!**/*.stories.js',
   ],
   coverageReporters: ['lcov', 'json-summary', 'json', 'text'],
   moduleNameMapper: {
