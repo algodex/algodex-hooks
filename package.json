@@ -1,11 +1,10 @@
 {
   "name": "@algodex/hooks",
   "version": "0.1.0",
-  "private": true,
-  "type": "module",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
+  "license": "UNLICENSED",
   "browserslist": [
     "defaults"
   ],
@@ -17,7 +16,9 @@
     "test-lint": "eslint .",
     "test-unit": "jest",
     "prepare": "husky install",
-    "release": "semantic-release"
+    "release": "semantic-release",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "axios": "^0.26.1",
@@ -51,13 +52,23 @@
     "@semantic-release/git": "^9.0.1",
     "@semantic-release/github": "^7.0.0",
     "@semantic-release/npm": "^7.0.0",
+    "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-interactions": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/builder-webpack5": "^6.4.19",
+    "@storybook/manager-webpack5": "^6.4.19",
+    "@storybook/react": "^6.4.19",
+    "@storybook/testing-library": "^0.0.9",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react-hooks": "^7.0.2",
     "autoprefixer": "^10.4.4",
+    "babel-loader": "^8.2.4",
     "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^8.11.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-storybook": "^0.5.7",
     "husky": "^7.0.4",
     "jest": "^27.5.1",
     "json-schema-faker": "^0.5.0-rcv.42",
@@ -77,8 +88,10 @@
     "rollup-plugin-terser": "^7.0.2",
     "semantic-release": "^17.0.0",
     "semantic-release-gitmoji": "^1.4.2",
+    "storybook-addon-jsx": "^7.3.14",
     "tslib": "^2.3.1",
-    "typescript": "^4.6.2"
+    "typescript": "^4.6.2",
+    "webpack": "^5.70.0"
   },
   "release": {
     "branches": [
