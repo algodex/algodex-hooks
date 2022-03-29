@@ -23,6 +23,7 @@ export default {
     'axios',
     'react-query',
     'prop-types',
+    'react-is',
     'lodash',
     'big.js',
     '@randlabs/myalgo-connect',
