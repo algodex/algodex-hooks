@@ -1,17 +1,15 @@
+import Big from 'big.js';
+import ServiceError from '../components/ServiceError';
+import Spinner from '../components/Spinner';
+import floatToFixed from '@algodex/algodex-sdk/lib/utils/format/floatToFixed'
+import millify from 'millify';
+import useAlgodex from '../useAlgodex.js';
+import useAssetOrdersQuery from './useAssetOrdersQuery';
 import {useMemo} from 'react';
 import {useQuery} from 'react-query';
-
-import millify from 'millify';
-
-import Big from 'big.js';
+import withQuery from '../util/withQuery';
 
 const refetchInterval = 3000;
-import withQuery from '../util/withQuery';
-import Spinner from '../components/Spinner';
-import ServiceError from '../components/ServiceError';
-import useAssetOrdersQuery from './useAssetOrdersQuery';
-import {floatToFixed} from '../services/display.js';
-import useAlgodex from '../useAlgodex.js';
 
 const components = {
   Loading: Spinner,

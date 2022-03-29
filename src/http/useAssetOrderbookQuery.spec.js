@@ -1,9 +1,9 @@
-import {wrapper} from '../../test/setup.js';
+import nock from 'nock';
 import {renderHook} from '@testing-library/react-hooks';
 import {
   useAssetOrderbookQuery,
 } from './useAssetOrderbookQuery.js';
-import nock from 'nock';
+import {wrapper} from '../../test/setup.js';
 
 const owner = 'TJFFNUYWHPPIYDE4DGGYPGHWKGAPJEWP3DGE5THZS3B2M2XIAPQ2WY3X4I';
 const escrow = 'UBIEX7AUCPE5JH2NCMAXTACGCXUE334O6EHERVVKZWKN2HK4UKFTZAQTQM';
@@ -47,7 +47,7 @@ describe('Fetch Orders', () => {
     const {result, waitFor} = renderHook(() => useAssetOrderbookQuery(
         {asset},
     ), {wrapper});
-
+    console.debug('result', result)
     await waitFor(() => {
       return result.current.isSuccess;
     });
