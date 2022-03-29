@@ -15,6 +15,7 @@
     "bundle-size": "cat dist/esm/index.js | gzip | wc -c",
     "test-lint": "eslint .",
     "test-unit": "jest",
+    "coverage": "jest --coverage",
     "prepare": "husky install",
     "release": "semantic-release",
     "storybook": "start-storybook -p 6006",

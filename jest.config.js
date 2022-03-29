@@ -10,7 +10,7 @@ module.exports = {
   collectCoverageFrom: [
     '**/src/**/*.{js,jsx}',
   ],
-  coverageReporters: ['lcov', 'text', 'json-summary', 'text'],
+  coverageReporters: ['lcov', 'json-summary', 'json', 'text'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src$1',
   },

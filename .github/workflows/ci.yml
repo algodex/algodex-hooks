@@ -1,7 +1,7 @@
 name: CI
 on:
   pull_request:
-    branches: [main, development, next]
+    branches: [ main, development, next ]
 jobs:
   lint:
     name: Lint
@@ -22,7 +22,7 @@ jobs:
   jest:
     name: Jest
     runs-on: ubuntu-latest
-    needs: [lint]
+    needs: [ lint ]
     steps:
       - uses: actions/checkout@v2
         with:
@@ -34,13 +34,16 @@ jobs:
           yarn
         env:
           NPM_AUTH_TOKEN: ${{ secrets.GH_PKG_READONLY }}
-      - name: Run Unit Tests
-        run: yarn test-unit
+      - uses: paambaati/codeclimate-action@v2.2.4
+        env:
+          CC_TEST_REPORTER_ID: dc854e8893fe856fc6b3c7a467807e63cb96e239e9ad9a30ddd59c8c3f8b07f8
+        with:
+          coverageCommand: yarn coverage
   release:
     name: Release
     runs-on: ubuntu-latest
     if: (github.ref == 'refs/heads/main' &&  github.event_name != 'pull_request')
-    needs: [jest]
+    needs: [ jest ]
     permissions:
       contents: read
       packages: write
