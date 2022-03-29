@@ -34,6 +34,20 @@ jobs:
           yarn
         env:
           NPM_AUTH_TOKEN: ${{ secrets.GH_PKG_READONLY }}
+      - name: Run Unit Tests
+        run: yarn test-unit
+  coverage:
+    needs: [ jest ]
+    name: Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: '12'
+      - run: npm install -g yarn
+      - run: yarn install
+      - run: yarn build
       - uses: paambaati/codeclimate-action@v2.2.4
         env:
           CC_TEST_REPORTER_ID: dc854e8893fe856fc6b3c7a467807e63cb96e239e9ad9a30ddd59c8c3f8b07f8
