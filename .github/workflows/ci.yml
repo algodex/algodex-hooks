@@ -41,6 +41,7 @@ jobs:
           ref: ⚗-hooks-integration
           path: ./node_modules/@algodex/algodex-sdk
           token: ${{ secrets.GH_TOKEN }}
+      - run: yarn
       - name: Run Unit Tests
         run: yarn test-unit
       - uses: paambaati/codeclimate-action@v3.0.0
