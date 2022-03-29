@@ -47,7 +47,7 @@ describe('Fetch Orders', () => {
     const {result, waitFor} = renderHook(() => useAssetOrderbookQuery(
         {asset},
     ), {wrapper});
-    console.debug('result', result)
+    console.debug('result', result);
     await waitFor(() => {
       return result.current.isSuccess;
     });
