@@ -22,6 +22,10 @@ export default {
     '@emotion/styled',
     'axios',
     'react-query',
+    'prop-types',
+    'react-is',
+    'lodash',
+    'big.js',
     '@randlabs/myalgo-connect',
     '@algodex/algodex-sdk',
   ],
@@ -35,10 +39,11 @@ export default {
       ],
       customResolver,
     }),
-    babel({
-      exclude: 'node_modules/**',
-      babelHelpers: 'runtime',
-    }),
+    babel(
+        {
+          babelHelpers: 'bundled',
+        },
+    ),
     commonjs(),
     nodeResolve({browser: true}),
     // terser(),
