@@ -29,14 +29,14 @@
     "pouchdb": "^7.2.2"
   },
   "peerDependencies": {
-    "@algodex/algodex-sdk": "^2.0.0-next.0",
+    "@algodex/algodex-sdk": "algodex/algodex-sdk#⚗-hooks-integration",
     "@randlabs/myalgo-connect": "^1.0.1",
     "algosdk": "^1.14.0",
     "react": "17.0.2",
     "react-query": "^3.17.1"
   },
   "devDependencies": {
-    "@algodex/algodex-sdk": "^2.0.0-next.0",
+    "@algodex/algodex-sdk": "algodex/algodex-sdk#⚗-hooks-integration",
     "@babel/core": "^7.14.3",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
