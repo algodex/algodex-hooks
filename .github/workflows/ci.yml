@@ -12,11 +12,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install dependencies
         run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GHP_AUTH_TOKEN }}" >> ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_PKG_READONLY }}" >> ~/.npmrc
           echo "@algodex:registry=https://npm.pkg.github.com" >> ~/.npmrc
           yarn
         env:
-          NPM_AUTH_TOKEN: ${{ secrets.GHP_AUTH_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.GH_PKG_READONLY }}
       - name: Lint Files
         run: yarn test-lint
 #  jest:
