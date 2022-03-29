@@ -35,7 +35,7 @@ jobs:
         env:
           NPM_AUTH_TOKEN: ${{ secrets.GH_PKG_READONLY }}
       - name: Run Unit Tests
-        run: yarn test-jest
+        run: yarn test-unit
   release:
     name: Release
     runs-on: ubuntu-latest
