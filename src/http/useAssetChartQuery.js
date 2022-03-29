@@ -7,7 +7,7 @@ import useAlgodex from '../useAlgodex.js';
 import useAssetOrdersQuery from './useAssetOrdersQuery';
 import {useMemo} from 'react';
 import {useQuery} from 'react-query';
-import withQuery from '../util/withQuery';
+import withQuery from '../utils/withQuery';
 
 const refetchInterval = 3000;
 
