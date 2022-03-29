@@ -40,7 +40,7 @@ jobs:
           repository: algodex/algodex-sdk
           ref: ⚗-hooks-integration
           path: ./node_modules/@algodex/algodex-sdk
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
       - name: Run Unit Tests
         run: yarn test-unit
       - uses: paambaati/codeclimate-action@v3.0.0
