@@ -1,6 +1,6 @@
 import nock from 'nock';
 import { renderHook } from '@testing-library/react-hooks';
-import { useAssetOrdersQuery } from './useAssetOrdersQuery.js';
+import useAssetOrdersQuery from './useAssetOrdersQuery.js';
 import { wrapper } from '../../test/setup.js';
 
 const owner = 'TJFFNUYWHPPIYDE4DGGYPGHWKGAPJEWP3DGE5THZS3B2M2XIAPQ2WY3X4I';
@@ -46,9 +46,9 @@ describe('Fetch Asset Orders Only', () => {
       { wrapper }
     );
     // console.log(result, 'result');
-    // await waitFor(() => {
-    //   return result.current.isSuccess;
-    // }, { timeout: 10000 });
+    await waitFor(() => {
+      return result.current.isSuccess;
+    });
 
     // TODO: Check the response parts not the entire object.
     // Break up into validation
