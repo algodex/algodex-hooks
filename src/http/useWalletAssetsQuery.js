@@ -78,7 +78,7 @@ export default function useWalletAssetsQuery({
     refetchInterval,
   },
 }) {
-  const {http} = useAlgodex()
+  const {http} = useAlgodex();
   const {data, ...rest} = useQuery(
       ['walletAssets', {address}],
       () => http.dexd.fetchWalletAssets(address),
