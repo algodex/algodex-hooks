@@ -3,6 +3,9 @@ import {renderHook} from '@testing-library/react-hooks';
 import {useAssetChartQuery} from './useAssetChartQuery.js';
 import {wrapper} from '../../test/setup.js';
 
+const owner = 'TJFFNUYWHPPIYDE4DGGYPGHWKGAPJEWP3DGE5THZS3B2M2XIAPQ2WY3X4I';
+const escrow = 'UBIEX7AUCPE5JH2NCMAXTACGCXUE334O6EHERVVKZWKN2HK4UKFTZAQTQM';
+
 describe('Fetch Asset Chart', () => {
   it('should fetch asset chart', async () => {
     // jest.setTimeout(60000);
@@ -11,6 +14,34 @@ describe('Fetch Asset Chart', () => {
       interval: '15m',
     };
     if (process.env.TEST_ENV !== 'integration') {
+      nock('https://testnet.algodex.com/algodex-backend')
+          .get(`/orders.php?assetId=${asset.id}`)
+          .reply(200, {
+            'sellASAOrdersInEscrow': [
+              {
+                'assetLimitPriceInAlgos': '0.123412345000',
+                'asaPrice': '0.123412345000',
+                'assetLimitPriceD': 1234123456,
+                'assetLimitPriceN': 10000000000,
+                'algoAmount': 498000,
+                'asaAmount': 10000000000,
+                'assetId': 69410904,
+                'appId': 22045522,
+                'escrowAddress': escrow,
+                'ownerAddress': owner,
+                'version': 7,
+                'minimumExecutionSizeInAlgo': 0,
+                'round': 19788126,
+                'unix_time': 1644938291,
+                'formattedPrice': '1234.123450',
+                'formattedASAAmount': '1.0000000000',
+                'decimals': 10,
+              },
+            ],
+            'buyASAOrdersInEscrow': [
+
+            ],
+          });
       nock('https://testnet.algodex.com/algodex-backend')
           .get(`/charts2.php?assetId=${asset.id}&chartTime=${asset.interval}`)
           .reply(200, {
@@ -67,29 +98,19 @@ describe('Fetch Asset Chart', () => {
             },
           });
     }
+
     const {result, waitFor} = renderHook(
         () => useAssetChartQuery({interval: asset.interval, asset}),
         {wrapper},
     );
-    console.debug(result, 'result');
+
     await waitFor(() => {
       return result.current.isSuccess;
     } );
-
-    // TODO: Check the response parts not the entire object.
-    // Break up into validation
-    // expect(result.current.data).toEqual({
-    //   isLoading: false,
-    //   orders: {
-    //     buy: [],
-    //     sell: [
-    //       {
-    //         amount: 1,
-    //         price: '1234.1235',
-    //         total: 1,
-    //       },
-    //     ],
-    //   },
-    // });
+    expect(result.current.isError).toBe(false);
+    expect(result.current.isLoading).toBe(false);
+    expect(Object.keys(result.current.data)).toEqual(
+        ['overlay', 'volume', 'ohlc', 'isLoading', 'isError'],
+    );
   });
 });
