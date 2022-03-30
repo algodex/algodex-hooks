@@ -21,6 +21,7 @@
   ],
   "rules": {
     "linebreak-style": "off",
-    "camelcase": "warn"
+    "camelcase": "warn",
+    "react/react-in-jsx-scope": "warn"
   }
 }
