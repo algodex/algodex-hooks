@@ -1,10 +1,9 @@
-import {useQuery} from 'react-query';
-
-// const refetchInterval = 3000;
-import withQuery from '../utils/withQuery';
-import Spinner from '../components/Spinner';
 import ServiceError from '../components/ServiceError';
+import Spinner from '../components/Spinner';
 import useAlgodex from '../useAlgodex.js';
+import {useQuery} from 'react-query';
+import withQuery from '../utils/withQuery.js';
+const refetchInterval = 3000;
 
 const components = {
   Loading: Spinner,
@@ -32,7 +31,8 @@ export function withAssetOrdersQuery(Component, options) {
  * @return {UseQueryResult<Object, unknown>}
  */
 export default function useAssetOrdersQuery({asset, options = {}}) {
-  const {http: {dexd: {fetchAssetOrders}}} = useAlgodex();
+  console.log(`useAssetOrdersQuery(${JSON.stringify({asset})})`);
+  const {http} = useAlgodex();
   const {id} = asset;
-  return useQuery(['assetOrders', {id}], () => fetchAssetOrders(id), options);
+  return useQuery(['assetOrders', {id}], () => http.dexd.fetchAssetOrders(id), options);
 }
