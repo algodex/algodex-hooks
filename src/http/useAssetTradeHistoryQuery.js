@@ -38,7 +38,7 @@ export default function useAssetTradeHistoryQuery({
     staleTime: 3000,
   },
 }) {
-  const {http} = useAlgodex()
+  const {http} = useAlgodex();
   const {id} = asset;
   const {data, ...rest} = useQuery(
       ['assetTradeHistory', {id}],
