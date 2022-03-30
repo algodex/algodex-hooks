@@ -1,7 +1,7 @@
 import fs from 'fs';
 import babel from '@rollup/plugin-babel';
 import alias from '@rollup/plugin-alias';
-import json from '@rollup/plugin-json';
+// import json from '@rollup/plugin-json';
 // import {terser} from 'rollup-plugin-terser';
 import commonjs from '@rollup/plugin-commonjs';
 import {nodeResolve} from '@rollup/plugin-node-resolve';
@@ -16,22 +16,26 @@ const customResolver = resolve({
 const projectRootDir = path.resolve(__dirname);
 export default {
   input: 'src',
-  external: [
-    'react',
-    'react-dom',
-    '@emotion/core',
-    '@emotion/styled',
-    'axios',
-    'react-query',
-    'prop-types',
-    'react-is',
-    'lodash',
-    'big.js',
-    '@randlabs/myalgo-connect',
-    '@algodex/algodex-sdk',
-  ],
+  external: (id) => {
+    return /@algodex/.test(id) || [
+      'react',
+      'react-dom',
+      '@emotion/core',
+      '@emotion/styled',
+      'axios',
+      'ajv',
+      'ajv-formats',
+      'react-query',
+      'prop-types',
+      'react-is',
+      'lodash',
+      'big.js',
+      '@randlabs/myalgo-connect',
+      'algosdk',
+    ].includes(id);
+  },
   plugins: [
-    json(),
+    // json(),
     alias({
       entries: [
         {

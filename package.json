@@ -9,7 +9,6 @@
     "defaults"
   ],
   "scripts": {
-    "start": "snowpack dev",
     "build": "rollup -c",
     "build-types": "tsc",
     "bundle-size": "cat dist/esm/index.js | gzip | wc -c",
