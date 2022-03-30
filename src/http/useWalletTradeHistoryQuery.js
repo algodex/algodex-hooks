@@ -1,13 +1,13 @@
+import ServiceError from '../components/ServiceError';
+import Spinner from '../components/Spinner';
 import dayjs from 'dayjs';
-import {floatToFixed} from '@/services/display.js';
-import {useQuery} from 'react-query';
-import {fetchWalletTradeHistory} from '@/services/algodex.js';
+import floatToFixed from '@algodex/algodex-sdk/lib/utils/format/floatToFixed';
+import useAlgodex from '../useAlgodex.js';
 import {useMemo} from 'react';
+import {useQuery} from 'react-query';
+import withQuery from '../utils/withQuery';
 
 const refetchInterval = 3000;
-import withQuery from '@/util/withQuery';
-import Spinner from '@/components/Spinner';
-import ServiceError from '@/components/ServiceError';
 
 const components = {
   Loading: Spinner,
@@ -78,9 +78,10 @@ export default function useWalletTradeHistoryQuery({
         },
     );
   };
+  const {http} = useAlgodex()
   const {data, ...rest} = useQuery(
       ['walletTradeHistory', {address}],
-      () => fetchWalletTradeHistory(address),
+      () => http.dexd.fetchWalletTradeHistory(address),
       options,
   );
   const orders = useMemo(() => mapTradeHistoryData(data), [data]);
