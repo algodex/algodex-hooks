@@ -1,11 +1,10 @@
-import {useQuery} from 'react-query';
-import {fetchWalletAssets} from '@/services/algodex.js';
+import ServiceError from '../components/ServiceError';
+import Spinner from '../components/Spinner';
+import useAlgodex from '../useAlgodex.js';
 import {useMemo} from 'react';
-
+import {useQuery} from 'react-query';
+import withQuery from '../utils/withQuery';
 const refetchInterval = 3000;
-import withQuery from '@/util/withQuery';
-import Spinner from '@/components/Spinner';
-import ServiceError from '@/components/ServiceError';
 
 /**
  *
@@ -79,9 +78,10 @@ export default function useWalletAssetsQuery({
     refetchInterval,
   },
 }) {
+  const {http} = useAlgodex();
   const {data, ...rest} = useQuery(
       ['walletAssets', {address}],
-      () => fetchWalletAssets(address),
+      () => http.dexd.fetchWalletAssets(address),
       options,
   );
   const assets = useMemo(() => mapAssetsData(data), [data]);
