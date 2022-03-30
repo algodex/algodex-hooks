@@ -16,7 +16,7 @@
     "test-lint": "eslint .",
     "test-unit": "jest --forceExit",
     "coverage": "jest --forceExit --coverage",
-    "prepare": "husky install",
+    "prepare": "husky install && rollup -c",
     "release": "semantic-release",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
