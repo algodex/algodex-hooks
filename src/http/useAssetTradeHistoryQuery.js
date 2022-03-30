@@ -1,11 +1,10 @@
+import ServiceError from '../components/ServiceError';
+import Spinner from '../components/Spinner';
+import floatToFixed from '@algodex/algodex-sdk/lib/utils/format/floatToFixed';
+import useAlgodex from '../useAlgodex.js';
 import {useQuery} from 'react-query';
-import {fetchAssetTradeHistory} from '@/services/algodex.js';
-import {floatToFixed} from '@/services/display.js';
-
 // const refetchInterval = 3000;
-import withQuery from '@/util/withQuery';
-import Spinner from '@/components/Spinner';
-import ServiceError from '@/components/ServiceError';
+import withQuery from '../utils/withQuery';
 
 const components = {
   Loading: Spinner,
@@ -39,10 +38,11 @@ export default function useAssetTradeHistoryQuery({
     staleTime: 3000,
   },
 }) {
+  const {http} = useAlgodex()
   const {id} = asset;
   const {data, ...rest} = useQuery(
       ['assetTradeHistory', {id}],
-      () => fetchAssetTradeHistory(id),
+      () => http.dexd.fetchAssetTradeHistory(id),
       options,
   );
 
