@@ -38,7 +38,7 @@ export default function useSearchResultsQuery({
     refetchInterval: query === '' ? refetchInterval : 20000,
   },
 } = {}) {
-  const {http} = useAlgodex()
+  const {http} = useAlgodex();
   const {data, isError, error, ...rest} = useQuery(
       ['searchResults', {query}],
       () => http.dexd.searchAssets(query),
