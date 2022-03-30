@@ -33,5 +33,9 @@ export function withAssetOrdersQuery(Component, options) {
 export default function useAssetOrdersQuery({asset, options = {}}) {
   const {http} = useAlgodex();
   const {id} = asset;
-  return useQuery(['assetOrders', {id}], () => http.dexd.fetchAssetOrders(id), options);
+  return useQuery(
+      ['assetOrders', {id}],
+      () => http.dexd.fetchAssetOrders(id),
+      options,
+  );
 }
