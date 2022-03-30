@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@algodex/algodex-sdk@algodex/algodex-sdk#⚗-hooks-integration":
+"@algodex/algodex-sdk@git+https://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:x-oauth-basic@github.com/algodex/algodex-sdk.git#⚗-hooks-integration":
   version "2.0.0-next.1"
-  resolved "git+ssh://git@github.com/algodex/algodex-sdk.git#13972e316a6fdb3f39162f6d4fa2b6cdc285e8c6"
+  resolved "git+https://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:x-oauth-basic@github.com/algodex/algodex-sdk.git#13972e316a6fdb3f39162f6d4fa2b6cdc285e8c6"
   dependencies:
     ajv "^8.10.0"
     ajv-formats "^2.1.1"
