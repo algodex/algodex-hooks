@@ -1,6 +1,5 @@
+import {getMinWalletBalance} from '@algodex/algodex-sdk/lib/functions/base.js'
 import {useQuery} from 'react-query';
-import WalletService from '@/services/wallet.js';
-
 // const refetchInterval = 3000;
 // import withQuery from '@/util/withQuery';
 // import Spinner from '@/components/Spinner';
@@ -26,7 +25,7 @@ export default function useWalletMinBalanceQuery({
 }) {
   return useQuery(
       ['walletMinBalance', {address: wallet?.address}],
-      async () => await WalletService.getMinWalletBalance(wallet),
+      async () => await getMinWalletBalance(wallet),
       options,
   );
 }
