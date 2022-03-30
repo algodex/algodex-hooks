@@ -1,10 +1,10 @@
+import ServiceError from '../components/ServiceError';
+import Spinner from '../components/Spinner';
+import useAlgodex from '../useAlgodex.js';
 import {useQuery} from 'react-query';
-import {searchAssets} from '@/services/algodex.js';
+import withQuery from '../utils/withQuery';
 
 const refetchInterval = 3000;
-import withQuery from '@/util/withQuery';
-import Spinner from '@/components/Spinner';
-import ServiceError from '@/components/ServiceError';
 
 const components = {
   Loading: Spinner,
@@ -38,9 +38,10 @@ export default function useSearchResultsQuery({
     refetchInterval: query === '' ? refetchInterval : 20000,
   },
 } = {}) {
+  const {http} = useAlgodex()
   const {data, isError, error, ...rest} = useQuery(
       ['searchResults', {query}],
-      () => searchAssets(query),
+      () => http.dexd.searchAssets(query),
       options,
   );
 
