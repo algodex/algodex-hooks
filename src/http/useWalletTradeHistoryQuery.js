@@ -78,7 +78,7 @@ export default function useWalletTradeHistoryQuery({
         },
     );
   };
-  const {http} = useAlgodex()
+  const {http} = useAlgodex();
   const {data, ...rest} = useQuery(
       ['walletTradeHistory', {address}],
       () => http.dexd.fetchWalletTradeHistory(address),
