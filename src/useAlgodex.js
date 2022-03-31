@@ -55,6 +55,7 @@ export default function useAlgodex() {
     algodex,
     // connect,
     isConnected,
+    http: algodex.http,
     order: algodex.order,
     setOrder: (...args)=>algodex.setOrder(...args),
     wallet: algodex.wallet,
