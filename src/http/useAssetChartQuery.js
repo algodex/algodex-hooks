@@ -144,6 +144,7 @@ export function useAssetChartQuery({
     data: assetOrders,
     isLoading: isOrdersLoading,
     isError: isOrdersError,
+    isSuccess: isOrdersSuccess,
   } = useAssetOrdersQuery({asset});
 
   const VOLUME_UP_COLOR = '#2fb16c2c';
@@ -164,7 +165,7 @@ export function useAssetChartQuery({
     isLoading: isChartLoading,
     isError: isChartError,
     data,
-    isSuccess,
+    isSuccess: isChartSuccess,
     ...rest
   } = useQuery(
       ['assetChart', {id, interval}],
@@ -191,7 +192,7 @@ export function useAssetChartQuery({
 
   const isLoading = isOrdersLoading || isChartLoading;
   const isError = isOrdersError || isChartError;
-
+  const isSuccess = isOrdersSuccess && isChartSuccess;
   return {
     data: {
       overlay: {
