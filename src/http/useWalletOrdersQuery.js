@@ -101,7 +101,7 @@ export default function useWalletOrdersQuery({
   options = {refetchInterval},
 }) {
   const {address} = wallet;
-  const {http} = useAlgodex()
+  const {http} = useAlgodex();
   const {data, ...rest} = useQuery(
       ['walletOrders', {address}],
       () => http.dexd.fetchWalletOrders(address),
