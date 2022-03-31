@@ -1,4 +1,4 @@
-import nock from 'nock';
+// import nock from 'nock';
 import {renderHook} from '@testing-library/react-hooks';
 import useWalletMinBalanceQuery from './useWalletMinBalanceQuery.js';
 import {wrapper} from '../../test/setup.js';

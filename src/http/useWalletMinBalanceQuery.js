@@ -1,4 +1,4 @@
-import {getMinWalletBalance} from '@algodex/algodex-sdk/lib/functions/base.js'
+import {getMinWalletBalance} from '@algodex/algodex-sdk/lib/functions/base.js';
 import {useQuery} from 'react-query';
 // const refetchInterval = 3000;
 // import withQuery from '@/util/withQuery';
