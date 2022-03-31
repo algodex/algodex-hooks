@@ -1,13 +1,12 @@
-import {useQuery} from 'react-query';
-import {fetchWalletOrders} from '@/services/algodex.js';
-import {useMemo} from 'react';
+import ServiceError from '../components/ServiceError';
+import Spinner from '../components/Spinner';
 import dayjs from 'dayjs';
-import {floatToFixed} from '@/services/display.js';
-
-// const refetchInterval = 3000;
-import withQuery from '@/util/withQuery';
-import Spinner from '@/components/Spinner';
-import ServiceError from '@/components/ServiceError';
+import floatToFixed from '@algodex/algodex-sdk/lib/utils/format/floatToFixed';
+import useAlgodex from '../useAlgodex.js';
+import {useMemo} from 'react';
+import {useQuery} from 'react-query';
+import withQuery from '../utils/withQuery';
+const refetchInterval = 3000;
 
 const components = {
   Loading: Spinner,
@@ -102,9 +101,10 @@ export default function useWalletOrdersQuery({
   options = {refetchInterval},
 }) {
   const {address} = wallet;
+  const {http} = useAlgodex();
   const {data, ...rest} = useQuery(
       ['walletOrders', {address}],
-      () => fetchWalletOrders(address),
+      () => http.dexd.fetchWalletOrders(address),
       options,
   );
   const orders = useMemo(() => mapOpenOrdersData(data), [data]);
