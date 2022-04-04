@@ -95,7 +95,7 @@ export function useAssetOrderbookQuery({
     refetchInterval,
   },
 } = {}) {
-  console.log(`useAssetOrderbookQuery(${JSON.stringify({asset})})`);
+  // console.log(`useAssetOrderbookQuery(${JSON.stringify({asset})})`);
   const {http} = useAlgodex();
   const {id, decimals} = asset;
   const [sell, setSellOrders] = useState([]);

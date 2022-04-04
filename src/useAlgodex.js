@@ -27,7 +27,7 @@ export default function useAlgodex() {
   // Get AlgodexAPI Context
   const algodex = useContext(AlgodexContext);
   // Watch for key changes
-  useWatch(algodex, ['config', 'algod', 'addresses', 'wallet', 'asset']);
+  useWatch(algodex, ['config', 'addresses', 'wallet', 'asset']);
 
   // Check for state
   const isConnected =
