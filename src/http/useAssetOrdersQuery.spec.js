@@ -1,7 +1,7 @@
 import nock from 'nock';
-import {renderHook} from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 import useAssetOrdersQuery from './useAssetOrdersQuery.js';
-import {wrapper} from '../../test/setup.js';
+import { wrapper } from '../../test/setup.js';
 
 describe('Fetch Asset Orders Only', () => {
   it('should fetch asset orders alone', async () => {
@@ -10,32 +10,23 @@ describe('Fetch Asset Orders Only', () => {
     };
     if (process.env.TEST_ENV !== 'integration') {
       nock('https://testnet.algodex.com/algodex-backend')
-          .get(`/orders.php?assetId=${asset.id}`)
-          .reply(200, require('./__tests__/fetchAssetOrders.json'));
+        .get(`/orders.php?assetId=${asset.id}`)
+        .reply(200, require('./__tests__/fetchAssetOrders.json'));
     }
-    const {result, waitFor} = renderHook(
-        () => useAssetOrdersQuery({asset}),
-        {wrapper},
+    const { result, waitFor } = renderHook(
+      () => useAssetOrdersQuery({ asset }),
+      { wrapper }
     );
-    // console.log(result, 'result');
     await waitFor(() => {
       return result.current.isSuccess;
     });
-
-    // TODO: Check the response parts not the entire object.
-    // Break up into validation
-    // expect(result.current.data).toEqual({
-    //   'isLoading': false,
-    //   'orders': {
-    //     'buy': [],
-    //     'sell': [
-    //       {
-    //         'amount': 1,
-    //         'price': '1234.1235',
-    //         'total': 1,
-    //       },
-    //     ],
-    //   },
-    // });
+   
+    expect(result.current.isError).toBe(false);
+    expect(result.current.isLoading).toBe(false);
+    expect(result.current.isSuccess).toBe(true);
+    expect(Object.keys(result.current.data)).toEqual([
+      'sellASAOrdersInEscrow',
+      'buyASAOrdersInEscrow',
+    ]);
   });
 });
