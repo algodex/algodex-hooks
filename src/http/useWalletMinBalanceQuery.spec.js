@@ -25,10 +25,9 @@ describe('Fetch Wallet Minimum Balance', () => {
     await waitFor(() => {
       return result.current.isSuccess;
     } );
-    // expect(result.current.isError).toBe(false);
-    // expect(result.current.isLoading).toBe(false);
-    // expect(Object.keys(result.current.data)).toEqual(
-    //     ['overlay', 'volume', 'ohlc', 'isLoading', 'isError'],
-    // );
+    console.log(result.current, 'minimum balance')
+    expect(result.current.isError).toBe(false);
+    expect(result.current.isLoading).toBe(false);
+    expect(typeof result.current.data).toBe('number');
   });
 });
