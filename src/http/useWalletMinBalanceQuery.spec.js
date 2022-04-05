@@ -25,7 +25,6 @@ describe('Fetch Wallet Minimum Balance', () => {
     await waitFor(() => {
       return result.current.isSuccess;
     } );
-    console.log(result.current, 'minimum balance')
     expect(result.current.isError).toBe(false);
     expect(result.current.isLoading).toBe(false);
     expect(typeof result.current.data).toBe('number');
