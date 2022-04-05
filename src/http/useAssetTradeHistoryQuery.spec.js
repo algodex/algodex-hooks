@@ -21,8 +21,7 @@ describe('Fetch Trade History', () => {
     await waitFor(() => {
       return result.current.isSuccess;
     } );
-    console.log(result.current, 'result')
-
+    
     expect(result.current.isError).toBe(false);
     expect(result.current.isLoading).toBe(false);
     expect(Object.keys(result.current.data)).toEqual(
