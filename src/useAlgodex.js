@@ -1,7 +1,7 @@
-import {useContext} from 'react';
+import {useContext, useEffect} from 'react';
 import AlgodexContext from './components/AlgodexContext.js';
-// import useMyAlgo from './wallet/useMyAlgo.js';
 import useWatch from './utils/useWatch.js';
+import {useQuery} from 'react-query';
 
 /**
  * @typedef {Object} AlgodexAPIHook
@@ -23,7 +23,6 @@ import useWatch from './utils/useWatch.js';
  * @return {AlgodexAPIHook}
  */
 export default function useAlgodex() {
-  // console.log('useAlgodexAPI(', arguments[0], ')');
   // Get AlgodexAPI Context
   const algodex = useContext(AlgodexContext);
   // Watch for key changes
@@ -33,22 +32,25 @@ export default function useAlgodex() {
   const isConnected =
     typeof algodex !== 'undefined' &&
     typeof algodex.addresses !== 'undefined' &&
-    algodex.addresses.length > 0;
+    algodex.addresses.length > 0 &&
+    typeof algodex.wallet !== 'undefined' &&
+    typeof algodex.wallet.address !== 'undefined';
 
-  // On MyAlgo Changes, update the AlgodexAPI
-  // const handleMyAlgoChange = useCallback(
-  //     (response) => {
-  //       console.log(response);
-  //       if (response == null) {
-  //         return;
-  //       }
-  //       algodex.setAddresses(response);
-  //     },
-  //     [algodex],
-  // );
-
-  // Hook into MyAlgo
-  // const connect = useMyAlgo({onChange: handleMyAlgoChange});
+  // TODO move to a proper useAccountInfo
+  const {data} = useQuery(
+      ['fetchAccountInfo', algodex.wallet?.address],
+      () => algodex.http.indexer.fetchAccountInfo(algodex.wallet),
+      {
+        enabled: isConnected,
+        refetchInterval: 3000,
+      },
+  );
+  // Set the wallet when account info resolves
+  useEffect(()=>{
+    if (typeof data !== 'undefined') {
+      algodex.setWallet(data, {validate: false, merge: true});
+    }
+  }, [data]);
 
   // Return algodex and Connect
   return {
