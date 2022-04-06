@@ -40,6 +40,13 @@ export function useAssetOrderbookQuery({
   // console.log(`useAssetOrderbookQuery(${JSON.stringify({asset})})`);
   const {http} = useAlgodex();
   const {id, decimals} = asset;
+  if (typeof id === 'undefined') {
+    throw new TypeError('Must have valid id!');
+  }
+  if (typeof decimals === 'undefined') {
+    throw new TypeError('Must have valid decimals!');
+  }
+
   const [sell, setSellOrders] = useState([]);
   const [buy, setBuyOrders] = useState([]);
 
