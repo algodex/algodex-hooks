@@ -27,7 +27,7 @@ create an ~/.npmrc file with the following contents:
 @algodex:registry=https://npm.pkg.github.com/
 ```
 or you can use npm login with your token
-```
+```shell
 $ npm login --scope=@algodex --registry=https://npm.pkg.github.com
 > Username: USERNAME
 > Password: TOKEN_SECRET
@@ -36,6 +36,23 @@ $ npm login --scope=@algodex --registry=https://npm.pkg.github.com
 
 ### Clone and install the necessary libraries
 
-```
+```shell
 yarn
+```
+
+### Running Tests
+
+Lint
+```shell
+yarn test-lint
+```
+
+Unit Test
+```shell
+yarn test-unit
+```
+
+Coverage
+```shell
+yarn coverage
 ```
