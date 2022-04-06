@@ -40,7 +40,6 @@ export default function useAssetPriceQuery({
     refetchInterval,
   },
 } = {}) {
-  // console.log(`useAssetPriceQuery(`, arguments[0], `)`);
   const {id} = algorandAsset;
   const {data: dexAsset, ...rest} = useQuery(
       ['assetPrice', {id}],
