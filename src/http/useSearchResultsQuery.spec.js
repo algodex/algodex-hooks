@@ -20,7 +20,7 @@ describe('Fetch Search Result', () => {
     await waitFor(() => {
       return result.current.isSuccess;
     } );
-    
+
     expect(result.current.isError).toBe(false);
     expect(result.current.isLoading).toBe(false);
     expect(Object.keys(result.current.data)).toEqual(['assets']);

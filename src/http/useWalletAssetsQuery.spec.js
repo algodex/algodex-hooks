@@ -17,14 +17,14 @@ describe('Fetch Wallet Assets', () => {
         () => useWalletAssetsQuery({wallet}),
         {wrapper},
     );
-    
+
     await waitFor(() => {
       return result.current.isSuccess;
-    } );
-    
+    });
+
     expect(result.current.isError).toBe(false);
     expect(result.current.isLoading).toBe(false);
-    expect(Object.keys(result.current.data)).toEqual([ 'assets' ]);
+    expect(Object.keys(result.current.data)).toEqual(['assets']);
     expect(Array.isArray(result.current.data.assets)).toBeTruthy();
   });
 });
