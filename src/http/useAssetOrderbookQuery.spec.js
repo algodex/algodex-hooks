@@ -33,7 +33,7 @@ describe('Fetch Orders', () => {
         'sell': [
           {
             'amount': 1,
-            'price': '1234.1235',
+            'price': '1234.123450',
             'total': 1,
           },
         ],
