@@ -48,7 +48,7 @@ export default function useAlgodex() {
   // Set the wallet when account info resolves
   useEffect(()=>{
     if (typeof data !== 'undefined') {
-      algodex.setWallet(data, {validate: true, merge: true});
+      algodex.setWallet(data, {validate: false, merge: true});
     }
   }, [data]);
 
