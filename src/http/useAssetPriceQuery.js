@@ -1,9 +1,9 @@
-import ServiceError from '@/components/ServiceError';
-import Spinner from '@/components/Spinner';
-import {fetchAssetPrice} from '@/services/algodex.js';
+import ServiceError from '../components/ServiceError';
+import Spinner from '../components/Spinner';
+import useAlgodex from '../useAlgodex.js';
 import {useMemo} from 'react';
 import {useQuery} from 'react-query';
-import withQuery from '@/util/withQuery';
+import withQuery from '../utils/withQuery';
 
 const refetchInterval = 3000;
 
@@ -40,10 +40,11 @@ export default function useAssetPriceQuery({
     refetchInterval,
   },
 } = {}) {
+  const {http} = useAlgodex();
   const {id} = algorandAsset;
   const {data: dexAsset, ...rest} = useQuery(
       ['assetPrice', {id}],
-      () => fetchAssetPrice(id),
+      () => http.dexd.fetchAssetPrice(id),
       options,
   );
   const asset = useMemo(() => {

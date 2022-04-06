@@ -22,6 +22,6 @@ describe('Fetch Asset Price', () => {
     });
     expect(result.current.isError).toBe(false);
     expect(result.current.isLoading).toBe(false);
-    expect(Object.keys(result.current.data)).toEqual(['']);
+    expect(Object.keys(result.current.data)).toEqual(['asset']);
   });
 });
