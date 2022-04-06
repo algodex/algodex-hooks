@@ -1,7 +1,5 @@
-import {useContext} from 'react';
+import {useContext, useEffect} from 'react';
 import AlgodexContext from './components/AlgodexContext.js';
-import fetchWallets from '@algodex/algodex-sdk/lib/wallet/http/fetchWallets';
-// import useMyAlgo from './wallet/useMyAlgo.js';
 import useWatch from './utils/useWatch.js';
 import {useQuery} from 'react-query';
 
@@ -25,7 +23,6 @@ import {useQuery} from 'react-query';
  * @return {AlgodexAPIHook}
  */
 export default function useAlgodex() {
-  // console.log('useAlgodexAPI(', arguments[0], ')');
   // Get AlgodexAPI Context
   const algodex = useContext(AlgodexContext);
   // Watch for key changes
@@ -35,19 +32,25 @@ export default function useAlgodex() {
   const isConnected =
     typeof algodex !== 'undefined' &&
     typeof algodex.addresses !== 'undefined' &&
-    algodex.addresses.length > 0;
+    algodex.addresses.length > 0 &&
+    typeof algodex.wallet !== 'undefined' &&
+    typeof algodex.wallet.address !== 'undefined';
 
-
-  // TODO move to constructed instance of HTTPClient
-  // TODO move to a proper useWalletsQuery
-  const {data, isLoading, isError} = useQuery(
-      'wallets',
-      () => fetchWallets(algodex.config, algodex.addresses),
+  // TODO move to a proper useAccountInfo
+  const {data} = useQuery(
+      ['fetchAccountInfo', algodex.wallet?.address],
+      () => algodex.http.indexer.fetchAccountInfo(algodex.wallet),
       {
         enabled: isConnected,
         refetchInterval: 3000,
       },
   );
+  // Set the wallet when account info resolves
+  useEffect(()=>{
+    if (typeof data !== 'undefined') {
+      algodex.setWallet(data, {validate: true, merge: true});
+    }
+  }, [data]);
 
   // Return algodex and Connect
   return {
@@ -63,7 +66,7 @@ export default function useAlgodex() {
     setAsset: (...args)=>algodex.setAsset(...args),
     config: algodex.config,
     setConfig: (...args)=>algodex.setConfig(...args),
-    addresses: isLoading || isError ? algodex.addresses : data,
+    addresses: algodex.addresses,
     setAddresses: (...args)=>algodex.setAddresses(...args),
     placeOrder: (...args)=>algodex.placeOrder(...args),
   };
