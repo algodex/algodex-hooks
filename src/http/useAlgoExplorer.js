@@ -1,13 +1,11 @@
+import ServiceError from '../components/ServiceError';
+import Spinner from '../components/Spinner';
+import useAlgodex from '../useAlgodex.js';
 import {useQuery} from 'react-query';
-import {
-  fetchExplorerAssetInfo, fetchAlgorandPrice,
-} from '@/services/algoexplorer';
+import withQuery from '../utils/withQuery';
 const DEBUG = process.env.NEXT_PUBLIC_DEBUG || process.env.DEBUG || false;
 
 const refetchInterval = 3000;
-import withQuery from '@/util/withQuery';
-import Spinner from '@/components/Spinner';
-import ServiceError from '@/components/ServiceError';
 const components = {
   Loading: Spinner,
   ServiceError,
@@ -23,10 +21,11 @@ const components = {
 export const useExplorerAssetInfo = ({asset, options}) => {
   DEBUG && console.debug(`useExplorerAssetInfo`);
   // const router = useRouter();
+  const {http} = useAlgodex();
   const {id} = asset;
   const {data, isError, error, ...rest} = useQuery(
       ['explorerAsset', id],
-      () => fetchExplorerAssetInfo(id),
+      () => http.explorer.fetchExplorerAssetInfo(id),
       options,
   );
   // console.log(data)
@@ -66,11 +65,15 @@ export const useAlgorandPriceQuery = ({
   options = {
     refetchInterval: query === '' ? refetchInterval : 20000,
   },
-} = {}) => useQuery(
-    ['fetchAlgorandPrice', {query}],
-    () => fetchAlgorandPrice(query),
-    options,
-);
+} = {}) => {
+  const {http} = useAlgodex();
+  return useQuery(
+      ['fetchAlgorandPrice', {query}],
+      () => http.explorer.fetchAlgorandPrice(query),
+      options,
+
+  );
+};
 
 /**
  * With Algorand Price Query
