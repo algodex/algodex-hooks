@@ -1,7 +1,8 @@
 import {useContext, useEffect} from 'react';
+
 import AlgodexContext from './components/AlgodexContext.js';
-import useWatch from './utils/useWatch.js';
 import {useQuery} from 'react-query';
+import useWatch from './utils/useWatch.js';
 
 /**
  * @typedef {Object} AlgodexAPIHook
