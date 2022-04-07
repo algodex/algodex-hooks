@@ -1,11 +1,11 @@
+import {default as Component} from './ServiceError';
 import React from 'react';
 import styled from '@emotion/styled';
-import {default as Component} from './ServiceError';
 
 const Container = styled.div`
   width: 320px;
   height: 320px;
-  background: ${({theme}) => theme.palette.gray['800']};
+  background: #1A202C;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -52,6 +52,7 @@ const Template = (args) => <Component {...args} />;
 
 export const Error = Template.bind({});
 Error.args = {
+  Icon: () => <div></div>,
   flex: true,
   size: 8,
 };
