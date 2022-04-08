@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_PKG_READONLY }}" >> ~/.npmrc
           echo "@algodex:registry=https://npm.pkg.github.com" >> ~/.npmrc
-          yarn
+          yarn && yarn build
         env:
           NPM_AUTH_TOKEN: ${{ secrets.GH_PKG_READONLY }}
 #      - run: rm -rf ./node_modules/@algodex/algodex-sdk
