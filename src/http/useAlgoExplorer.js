@@ -18,7 +18,7 @@ const components = {
  * @param {object} options
  * @return {object}
  */
-export const useExplorerAssetInfo = ({asset, options}) => {
+export function useExplorerAssetInfo({asset, options}) {
   DEBUG && console.debug(`useExplorerAssetInfo`);
   // const router = useRouter();
   const {http} = useAlgodex();
@@ -60,12 +60,12 @@ export function withExplorerAssetInfo(Component, options) {
  * @param {Object} [props.options] useQuery Options
  * @return {UseQueryResult<{assets: *}, unknown>}
  */
-export const useAlgorandPriceQuery = ({
+export function useAlgorandPriceQuery({
   query = '',
   options = {
     refetchInterval: query === '' ? refetchInterval : 20000,
   },
-} = {}) => {
+} = {}) {
   const {http} = useAlgodex();
   return useQuery(
       ['fetchAlgorandPrice', {query}],

@@ -33,7 +33,7 @@ export function withWalletOrdersQuery(Component, options) {
  * @param {Object} [props.options] useQuery Options
  * @return {object}
  */
-export default function useWalletOrdersQuery({
+export function useWalletOrdersQuery({
   wallet,
   options = {refetchInterval},
 }) {
@@ -47,3 +47,5 @@ export default function useWalletOrdersQuery({
   const orders = useMemo(() => http.dexd.mapOpenOrdersData(data), [data]);
   return {data: {orders}, ...rest};
 }
+
+export default useWalletOrdersQuery;
