@@ -1,92 +1,143 @@
 {
-  "name": "algodex-react",
+  "name": "@algodex/hooks",
   "version": "0.1.0",
-  "private": true,
+  "main": "dist/cjs/index.js",
+  "license": "UNLICENSED",
+  "browserslist": [
+    "defaults"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "test": "jest",
-    "jest": "jest --watch",
-    "lint": "eslint --fix .",
-    "format": "prettier --write './**/*.{js,jsx,css,md,json}' --config ./.prettierrc.json",
-    "storybook": "start-storybook -p 6006 --no-dll -s ./public",
-    "build-storybook": "build-storybook",
-    "cypress": "cypress open",
-    "chromatic": "npx chromatic --project-token=ef5af38aec3a"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "./**/*.{js,jsx}": [
-      "eslint --fix"
-    ]
-  },
-  "resolutions": {
-    "styled-components": "^5"
+    "build": "rollup -c",
+    "build-types": "tsc",
+    "bundle-size": "cat dist/cjs/index.js | gzip | wc -c",
+    "test-lint": "eslint .",
+    "test-unit": "jest --forceExit",
+    "coverage": "jest --forceExit --coverage",
+    "prepare": "husky install",
+    "release": "semantic-release",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@algodex/algodex-sdk": "^1.0.73",
+    "millify": "^4.0.0"
+  },
+  "peerDependencies": {
+    "@algodex/algodex-sdk": "2.0.0-next.1",
     "@randlabs/myalgo-connect": "^1.0.1",
-    "@sentry/nextjs": "^6.11.0",
-    "axios": "^0.21.1",
+    "algosdk": "^1.14.0",
     "big.js": "^6.1.1",
-    "cookies": "^0.8.0",
-    "dayjs": "^1.10.5",
-    "framer-motion": "^4.1.17",
-    "immer": "^9.0.3",
-    "lightweight-charts": "^3.3.0",
-    "millify": "^4.0.0",
-    "moment": "^2.29.1",
-    "next": "10.2.3",
-    "next-translate": "^1.0.7",
-    "polished": "^4.1.3",
-    "react": "17.0.2",
-    "react-country-flag": "^2.3.0",
-    "react-dom": "17.0.2",
-    "react-feather": "^2.0.9",
-    "react-ga": "^3.3.0",
-    "react-hot-toast": "^2.0.0",
-    "react-ionicons": "^4.2.0",
-    "react-popper-tooltip": "^4.3.0",
-    "react-query": "^3.17.1",
-    "react-svg": "^13.0.6",
-    "react-table": "^7.7.0",
-    "resize-detector": "^0.3.0",
-    "storybook-addon-jsx": "^7.3.10",
-    "storybook-addon-next-router": "^3.0.5",
-    "styled-components": "^5.3.0",
-    "styled-system": "^5.1.5",
-    "zustand": "^3.5.2"
+    "react": "18.0.0",
+    "react-query": "^3.34.19"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.3",
-    "@emotion/babel-plugin": "^11.3.0",
-    "@storybook/addon-actions": "^6.2.9",
-    "@storybook/addon-essentials": "^6.2.9",
-    "@storybook/addon-links": "^6.2.9",
-    "@storybook/react": "^6.2.9",
-    "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.7",
-    "babel-jest": "^27.0.1",
-    "babel-loader": "^8.2.2",
-    "babel-plugin-styled-components": "^1.12.0",
-    "chromatic": "^5.8.3",
-    "cypress": "^7.4.0",
-    "eslint": "^7.27.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.23.2",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^6.0.0",
-    "hygen-cra": "^1.0.0",
-    "jest": "^27.0.1",
-    "lint-staged": "^11.0.0",
-    "prettier": "2.3.0",
-    "react-test-renderer": "^17.0.2"
+    "@algodex/algodex-sdk": "2.0.0-next.1",
+    "@babel/core": "^7.17.8",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@emotion/babel-preset-css-prop": "^11.2.0",
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@json-rpc-tools/utils": "^1.7.6",
+    "@rollup/plugin-alias": "^3.1.9",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^21.0.3",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "@rollup/plugin-typescript": "^8.3.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.4",
+    "@semantic-release/npm": "^9.0.1",
+    "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-interactions": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/builder-webpack5": "^6.4.19",
+    "@storybook/manager-webpack5": "^6.4.19",
+    "@storybook/react": "^6.4.19",
+    "@storybook/testing-library": "^0.0.9",
+    "@testing-library/jest-dom": "^5.16.3",
+    "@testing-library/react-hooks": "^7.0.2",
+    "algosdk": "^1.15.0",
+    "autoprefixer": "^10.4.4",
+    "big.js": "^6.1.1",
+    "eslint": "^8.12.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-storybook": "^0.5.7",
+    "husky": "^7.0.4",
+    "jest": "^27.5.1",
+    "nock": "^13.2.4",
+    "postcss": "^8.4.12",
+    "prop-types": "^15.8.1",
+    "react": "18.0.0",
+    "react-dom": "^18.0.0",
+    "react-is": "^18.0.0",
+    "react-query": "^3.34.19",
+    "react-test-renderer": "^18.0.0",
+    "rollup": "^2.70.1",
+    "rollup-plugin-dts": "^4.2.0",
+    "rollup-plugin-filesize": "^9.1.2",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-polyfill-node": "^0.9.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "semantic-release": "^19.0.2",
+    "semantic-release-gitmoji": "^1.4.4",
+    "storybook-addon-jsx": "^7.3.14",
+    "tslib": "^2.3.1",
+    "typescript": "^4.6.3",
+    "webpack": "^5.70.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/algodex"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      [
+        "semantic-release-gitmoji",
+        {
+          "releaseRules": {
+            "major": [
+              ":boom:",
+              "💥"
+            ],
+            "minor": [
+              ":sparkles:",
+              "✨"
+            ],
+            "patch": [
+              ":bug:",
+              ":ambulance:",
+              ":lock:",
+              "🐛",
+              "🚑",
+              "🔒"
+            ]
+          },
+          "releaseNotes": {
+            "issueResolution": {
+              "template": "{baseUrl}/{owner}/{repo}/issues/{ref}",
+              "baseUrl": "https://github.com",
+              "source": "github.com"
+            }
+          }
+        }
+      ],
+      "@semantic-release/npm",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "package.json"
+          ],
+          "message": "🔖 ${nextRelease.version} \n\n${nextRelease.notes}"
+        }
+      ],
+      "@semantic-release/github"
+    ]
   }
 }

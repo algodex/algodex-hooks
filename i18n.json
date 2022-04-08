@@ -1,9 +1,0 @@
-{
-  "locales": ["ch", "en", "es", "nl", "tr","vn","se","hu"],
-  "defaultLocale": "en",
-  "pages": {
-    "*": ["common", "wallet", "place-order", "assets", "orders", "chart"],
-    "/": ["common", "wallet", "place-order", "assets", "orders", "chart"],
-    "/trade/[slug]": ["common", "wallet", "place-order", "assets", "orders", "chart"]
-  }
-}
