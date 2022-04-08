@@ -2,8 +2,6 @@
   "name": "@algodex/hooks",
   "version": "0.1.0",
   "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/index.d.ts",
   "license": "UNLICENSED",
   "browserslist": [
     "defaults"
@@ -21,17 +19,13 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "axios": "^0.26.1",
-    "big.js": "^6.1.1",
-    "dayjs": "^1.11.0",
-    "lodash": "^4.17.21",
-    "millify": "^4.0.0",
-    "pouchdb": "^7.2.2"
+    "millify": "^4.0.0"
   },
   "peerDependencies": {
     "@algodex/algodex-sdk": "2.0.0-next.1",
     "@randlabs/myalgo-connect": "^1.0.1",
     "algosdk": "^1.14.0",
+    "big.js": "^6.1.1",
     "react": "18.0.0",
     "react-query": "^3.34.19"
   },
@@ -66,6 +60,7 @@
     "@testing-library/react-hooks": "^7.0.2",
     "algosdk": "^1.15.0",
     "autoprefixer": "^10.4.4",
+    "big.js": "^6.1.1",
     "eslint": "^8.12.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.29.4",
@@ -93,6 +88,9 @@
     "tslib": "^2.3.1",
     "typescript": "^4.6.3",
     "webpack": "^5.70.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/algodex"
   },
   "release": {
     "branches": [

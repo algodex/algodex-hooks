@@ -211,3 +211,5 @@ export function useAssetChartQuery({
     ...rest,
   };
 }
+
+export default useAssetChartQuery;

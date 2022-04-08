@@ -10,7 +10,7 @@ import AlgodexApi from '@algodex/algodex-sdk/lib/AlgodexApi.js';
  *
  * @type {React.Context<{}>}
  */
-const AlgodexAPIContext = createContext({});
+export const AlgodexContext = createContext({});
 
 /**
  *
@@ -21,9 +21,9 @@ const AlgodexAPIContext = createContext({});
  */
 export function Provider({children, dex}) {
   const context = useMemo(() => dex, [dex]);
-  return <AlgodexAPIContext.Provider value={context}>
+  return <AlgodexContext.Provider value={context}>
     {children}
-  </AlgodexAPIContext.Provider>;
+  </AlgodexContext.Provider>;
 }
 Provider.propTypes = {
   /**
@@ -35,4 +35,3 @@ Provider.propTypes = {
    */
   dex: PropTypes.instanceOf(AlgodexApi),
 };
-export default AlgodexAPIContext;

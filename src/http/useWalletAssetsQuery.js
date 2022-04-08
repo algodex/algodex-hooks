@@ -71,7 +71,7 @@ export const mapAssetsData = (data) => {
  * @todo: Fetch Wallet Assets from on-chain
  * @return {object}
  */
-export default function useWalletAssetsQuery({
+export function useWalletAssetsQuery({
   wallet: {address},
   options = {
     enabled: typeof address !== 'undefined',
@@ -87,3 +87,5 @@ export default function useWalletAssetsQuery({
   const assets = useMemo(() => mapAssetsData(data), [data]);
   return {data: {assets}, ...rest};
 }
+
+export default useWalletAssetsQuery;
