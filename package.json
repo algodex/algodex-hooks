@@ -9,7 +9,7 @@
   "scripts": {
     "build": "rollup -c",
     "build-types": "tsc",
-    "bundle-size": "cat dist/esm/index.js | gzip | wc -c",
+    "bundle-size": "cat dist/cjs/index.js | gzip | wc -c",
     "test-lint": "eslint .",
     "test-unit": "jest --forceExit",
     "coverage": "jest --forceExit --coverage",
