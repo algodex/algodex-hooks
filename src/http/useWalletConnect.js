@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef} from 'react';
+import {useCallback, useEffect, useRef} from 'react';
 
 import QRCodeModal from 'algorand-walletconnect-qrcode-modal';
 import {useAlgodex} from '@algodex/hooks/src';
