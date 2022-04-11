@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useRef} from 'react';
 
 import QRCodeModal from 'algorand-walletconnect-qrcode-modal';
-import {useAlgodex} from '@algodex/hooks/src';
+import useAlgodex from './useAlgodex';
 
 const ERROR = {
   FAILED_TO_INIT: 'MyAlgo Wallet failed to initialize.',
