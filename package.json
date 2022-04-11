@@ -57,6 +57,7 @@
     "@storybook/react": "^6.4.19",
     "@storybook/testing-library": "^0.0.9",
     "@testing-library/jest-dom": "^5.16.3",
+    "@testing-library/react": "^13.0.1",
     "@testing-library/react-hooks": "^7.0.2",
     "algosdk": "^1.15.0",
     "autoprefixer": "^10.4.4",
