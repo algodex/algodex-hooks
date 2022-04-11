@@ -1,6 +1,6 @@
 import nock from 'nock';
 import wallet from '../spec/Wallet.json';
-
+import asset from '../spec/Asset.json';
 
 const routes = {
   walletTradeHistory: {
@@ -10,6 +10,14 @@ const routes = {
   walletOrders: {
     path: `/orders.php?ownerAddr=${wallet.address}&getAssetInfo=true`,
     reply: require('../spec/fetchWalletOrders.json'),
+  },
+  assetOrders: {
+    path: `/orders.php?assetId=${asset.id}`,
+    reply: require('../spec/fetchAssetOrders.json'),
+  },
+  assetChart: {
+    path: `/charts2.php?assetId=${asset.id}&chartTime=15m`,
+    reply: require('../spec/fetchAssetChart.json'),
   },
 };
 
