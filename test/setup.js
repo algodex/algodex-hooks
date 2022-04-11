@@ -3,7 +3,7 @@ import {QueryClient, QueryClientProvider} from 'react-query';
 import {render} from '@testing-library/react';
 import AlgodexApi from '@algodex/algodex-sdk/lib/AlgodexApi.js';
 import {Provider} from '../src/components/AlgodexContext.js';
-
+import {default as nockLib} from 'nock';
 
 const queryClient = new QueryClient();
 /**
@@ -65,6 +65,15 @@ export function toOwnerInfoRoute(route, {wallet, includeAssetInfo}) {
   return `/${route}.php?ownerAddr=${wallet.address}` +
     `&getAssetInfo=${includeAssetInfo}`;
 }
+
+/**
+ * Nock setup
+ * @return {*}
+ */
+export function nock() {
+  return nockLib('https://testnet.algodex.com/algodex-backend');
+}
+
 const customRender = (ui, options = {}) => render(ui, {wrapper, ...options});
 export * from '@testing-library/react';
 export {customRender as render};

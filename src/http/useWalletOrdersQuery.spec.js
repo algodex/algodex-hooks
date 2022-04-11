@@ -1,22 +1,22 @@
-import nock from 'nock';
 import {renderHook} from '@testing-library/react-hooks';
 import useWalletOrdersQuery from './useWalletOrdersQuery.js';
-import {wrapper, toOwnerInfoRoute} from '../../test/setup.js';
+import {wrapper, toOwnerInfoRoute, nock} from '../../test/setup.js';
 import wallet from '../../spec/Wallet.json';
 const INCLUDE_ASSET_INFO = true;
 
-describe('Fetch Wallet Orders', () => {
-  it('should fetch orders in a wallet', async () => {
-    if (process.env.TEST_ENV !== 'integration') {
-      nock('https://testnet.algodex.com/algodex-backend')
-          .get(
-              toOwnerInfoRoute(
-                  'orders',
-                  {wallet, includeAssetInfo: INCLUDE_ASSET_INFO},
-              ),
-          )
-          .reply(200, require('../../spec/fetchWalletOrders.json'));
-    }
+if (process.env.TEST_ENV !== 'integration') {
+  nock()
+      .get(
+          toOwnerInfoRoute(
+              'orders',
+              {wallet, includeAssetInfo: INCLUDE_ASSET_INFO},
+          ),
+      )
+      .reply(200, require('../../spec/fetchWalletOrders.json'));
+}
+
+describe('useWalletOrdersQuery', () => {
+  it('should query orders for a wallet', async () => {
     const {result, waitFor} = renderHook(
         () => useWalletOrdersQuery({wallet}),
         {wrapper},
