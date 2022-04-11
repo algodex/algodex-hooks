@@ -22,9 +22,9 @@ const tests = [
     flex: false,
   },
 ];
-describe('Icon Button', () => {
-  it('Should render flex container', () => {
-    tests.map((props)=>{
+describe('Service Error', () => {
+  tests.map((props)=>{
+    it('should render flex contaienr', ()=>{
       const {queryByTestId} = render(
           <ServiceError {...props} />,
       );
@@ -33,16 +33,15 @@ describe('Icon Button', () => {
         expect(queryByTestId('flex-service')).not.toBeNull();
       } else {
         expect(queryByTestId('flex-service')).toBeNull();
+        expect(
+            queryByTestId('mssg-service'),
+        ).toHaveStyleRule('color', props.color);
       }
       if (props.size === 1.5) {
         expect(
             queryByTestId('mssg-service'),
         ).toHaveStyleRule('margin', '0 0 1rem 0');
       }
-
-      expect(
-          queryByTestId('mssg-service'),
-      ).toHaveStyleRule('color', props.color);
     });
   });
 });
