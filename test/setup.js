@@ -54,6 +54,17 @@ export function wrapper({children}) {
   );
 }
 
+/**
+ *
+ * @param {string} route
+ * @param {Wallet} wallet
+ * @param {boolean} includeAssetInfo
+ * @return {string}
+ */
+export function toOwnerInfoRoute(route, {wallet, includeAssetInfo}) {
+  return `/${route}.php?ownerAddr=${wallet.address}` +
+    `&getAssetInfo=${includeAssetInfo}`;
+}
 const customRender = (ui, options = {}) => render(ui, {wrapper, ...options});
 export * from '@testing-library/react';
 export {customRender as render};
