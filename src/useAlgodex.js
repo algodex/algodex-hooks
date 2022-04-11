@@ -30,7 +30,7 @@ export default function useAlgodex() {
   useWatch(algodex, ['config', 'addresses', 'wallet', 'asset']);
 
   // Check for state
-  const isConnected =
+  const hasWalletAndAddresses =
     typeof algodex !== 'undefined' &&
     typeof algodex.addresses !== 'undefined' &&
     algodex.addresses.length > 0 &&
@@ -38,18 +38,21 @@ export default function useAlgodex() {
     typeof algodex.wallet.address !== 'undefined';
 
   // TODO move to a proper useAccountInfo
-  const {data} = useQuery(
+  const {data, isSuccess} = useQuery(
       ['fetchAccountInfo', algodex.wallet?.address],
-      () => algodex.http.indexer.fetchAccountInfo(algodex.wallet),
+      () => algodex.http.indexer.fetchAccounts(algodex.addresses),
       {
-        enabled: isConnected,
+        enabled: hasWalletAndAddresses,
         refetchInterval: 3000,
       },
   );
+
+  const isConnected = hasWalletAndAddresses && isSuccess;
+
   // Set the wallet when account info resolves
   useEffect(()=>{
-    if (typeof data !== 'undefined') {
-      algodex.setWallet(data, {validate: false, merge: true});
+    if (typeof data !== 'undefined' && isConnected) {
+      algodex.setAddresses(data, {validate: false, merge: true});
     }
   }, [data]);
 

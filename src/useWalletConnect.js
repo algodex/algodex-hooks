@@ -12,7 +12,7 @@ const ERROR = {
  * Use Wallet Connect query
  * @return {object}
  */
-export default function useWalletConnect() {
+export function useWalletConnect() {
   /**
    * State Setter
    */
@@ -61,7 +61,9 @@ export default function useWalletConnect() {
   };
   useEffect(() => {
     const initWalletConnect = async () => {
-      const WalletConnect = (await import('@walletconnect/client')).default;
+      const WalletConnect = await import(
+          '@algodex/algodex-sdk/lib/wallet/connectors/WalletConnect'
+      );
       walletConnect.current = window.temp = new WalletConnect({
         bridge: 'https://bridge.walletconnect.org', // Required
         qrcodeModal: QRCodeModal,

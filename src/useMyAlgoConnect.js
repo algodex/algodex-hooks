@@ -10,7 +10,7 @@ const ERROR = {
  * useMyAlgoConnect
  * @return {WalletEffect}
  */
-export default function useMyAlgoConnect() {
+export function useMyAlgoConnect() {
   // State Setter
   const {setAddresses, setWallet, wallet} = useAlgodex();
 
@@ -35,6 +35,7 @@ export default function useMyAlgoConnect() {
         acct.connector.connected = true;
         return acct;
       });
+
       console.log('MYALGO ADDRESES', accounts, _addresses);
       setAddresses(_addresses, {validate: false, merge: true});
       if (
