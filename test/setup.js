@@ -4,7 +4,8 @@ import {render} from '@testing-library/react';
 import AlgodexApi from '@algodex/algodex-sdk/lib/AlgodexApi.js';
 import {Provider} from '../src/components/AlgodexContext.js';
 import {default as nockLib} from 'nock';
-
+import {matchers} from '@emotion/jest';
+expect.extend(matchers);
 const queryClient = new QueryClient();
 /**
  *

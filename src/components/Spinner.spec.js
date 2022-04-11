@@ -2,35 +2,20 @@
  * @jest-environment jsdom
  */
 import React from 'react';
-import {matchers} from '@emotion/jest';
 import {render} from '../../test/setup';
 import {Spinner} from './Spinner';
 
-expect.extend(matchers);
-const color = 'gray.600';
-describe('spinner', () => {
-  it('Should render spinner with container if flex is true', () => {
+describe('Spinner', () => {
+  it('should render a spinner', () => {
     const {queryByTestId} = render(
         <Spinner
           data-testid="spinner-element"
-          color={color}
+          color={'gray'}
           flex={true}
           size={5}
         />,
     );
     expect(queryByTestId('spinner-flex-container')).not.toBeNull();
-    expect(queryByTestId('spinner-svg')).not.toBeNull();
-  });
-
-  it('Should render spinner without container if flex is false', () => {
-    const {queryByTestId} = render(
-        <Spinner
-          data-testid="spinner-element"
-          color={color}
-          flex={true}
-          size={5}
-        />,
-    );
     expect(queryByTestId('spinner-svg')).not.toBeNull();
   });
 });
