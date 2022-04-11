@@ -31,7 +31,7 @@ export function withAssetTradeHistoryQuery(Component, options) {
  * @param {Object} [props.options] useQuery Options
  * @return {object} Massaged React-Query
  */
-export default function useAssetTradeHistoryQuery({
+export function useAssetTradeHistoryQuery({
   asset,
   options = {
     refetchInterval: 5000,
@@ -57,3 +57,5 @@ export default function useAssetTradeHistoryQuery({
 
   return {data: {orders: tradesData}, ...rest};
 }
+
+export default useAssetTradeHistoryQuery;

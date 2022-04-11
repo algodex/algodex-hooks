@@ -32,7 +32,7 @@ export function withSearchResultsQuery(Component, options) {
  * @param {Object} [props.options] useQuery Options
  * @return {object}
  */
-export default function useSearchResultsQuery({
+export function useSearchResultsQuery({
   query = '',
   options = {
     refetchInterval: query === '' ? refetchInterval : 20000,
@@ -47,3 +47,4 @@ export default function useSearchResultsQuery({
 
   return {data, isError, error, ...rest};
 }
+export default useSearchResultsQuery;

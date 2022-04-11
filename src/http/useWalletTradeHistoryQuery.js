@@ -34,7 +34,7 @@ export function withWalletTradeHistoryQuery(Component, options) {
  * @param {Object} [props.options] useQuery Options
  * @return {object}
  */
-export default function useWalletTradeHistoryQuery({
+export function useWalletTradeHistoryQuery({
   wallet,
   options = {
     refetchInterval,
@@ -51,3 +51,5 @@ export default function useWalletTradeHistoryQuery({
   const orders = useMemo(() => http.dexd.mapTradeHistoryData(data), [data]);
   return {data: {orders}, ...rest};
 }
+
+export default useWalletTradeHistoryQuery;

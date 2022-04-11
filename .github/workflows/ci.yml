@@ -33,17 +33,17 @@ jobs:
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_PKG_READONLY }}" >> ~/.npmrc
           echo "@algodex:registry=https://npm.pkg.github.com" >> ~/.npmrc
-          yarn
+          yarn && yarn build
         env:
           NPM_AUTH_TOKEN: ${{ secrets.GH_PKG_READONLY }}
-      - run: rm -rf ./node_modules/@algodex/algodex-sdk
-      - uses: actions/checkout@v2
-        with:
-          repository: algodex/algodex-sdk
-          ref: next
-          path: ./node_modules/@algodex/algodex-sdk
-          token: ${{ secrets.GH_TOKEN }}
-      - run: cd ./node_modules/@algodex/algodex-sdk && yarn
+#      - run: rm -rf ./node_modules/@algodex/algodex-sdk
+#      - uses: actions/checkout@v2
+#        with:
+#          repository: algodex/algodex-sdk
+#          ref: next
+#          path: ./node_modules/@algodex/algodex-sdk
+#          token: ${{ secrets.GH_TOKEN }}
+#      - run: cd ./node_modules/@algodex/algodex-sdk && yarn
       - name: Run Unit Tests
         run: yarn test-unit
       - uses: paambaati/codeclimate-action@v3.0.0
@@ -68,10 +68,11 @@ jobs:
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_TOKEN }}" >> ~/.npmrc
           echo "@algodex:registry=https://npm.pkg.github.com" >> ~/.npmrc
           yarn
+          yarn build
         env:
           NPM_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Run Release
-        run: yarn release
+        run: npx semantic-release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

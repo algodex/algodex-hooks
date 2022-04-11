@@ -30,7 +30,7 @@ export function withAssetOrdersQuery(Component, options) {
  * @param {object} options
  * @return {UseQueryResult<Object, unknown>}
  */
-export default function useAssetOrdersQuery({asset, options = {}}) {
+export function useAssetOrdersQuery({asset, options = {}}) {
   const {http} = useAlgodex();
   const {id} = asset;
   return useQuery(
@@ -39,3 +39,5 @@ export default function useAssetOrdersQuery({asset, options = {}}) {
       options,
   );
 }
+
+export default useAssetOrdersQuery;

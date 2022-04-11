@@ -16,7 +16,7 @@ import {useQuery} from 'react-query';
  * @param {Object} [props.options] useQuery Options
  * @return {object}
  */
-export default function useWalletMinBalanceQuery({
+export function useWalletMinBalanceQuery({
   wallet,
   options = {
     enabled: typeof wallet !== 'undefined' &&
@@ -29,3 +29,5 @@ export default function useWalletMinBalanceQuery({
       options,
   );
 }
+
+export default useWalletMinBalanceQuery;

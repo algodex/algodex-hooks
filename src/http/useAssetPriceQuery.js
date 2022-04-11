@@ -34,7 +34,7 @@ export function withAssetPriceQuery(Component, options) {
  * @todo: Consolidate with Search
  * @return {object} Massaged Query
  */
-export default function useAssetPriceQuery({
+export function useAssetPriceQuery({
   asset: algorandAsset,
   options = {
     refetchInterval,
@@ -56,3 +56,5 @@ export default function useAssetPriceQuery({
 
   return {data: {asset}, ...rest};
 }
+
+export default useAssetPriceQuery;

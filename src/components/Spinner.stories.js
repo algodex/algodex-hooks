@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
-  background: #2D3748;
+  background: #F8FAFC;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -18,16 +18,11 @@ export default {
   argTypes: {
     color: {
       options: [
-        'gray.000',
-        'gray.100',
-        'gray.200',
-        'gray.300',
-        'gray.400',
-        'gray.500',
-        'gray.600',
-        'gray.700',
-        'gray.800',
-        'gray.900',
+        '#EDF2F6',
+        '#E2E8F0',
+        '#CBD5E0',
+        '#A1AEC0',
+        '#4A5568',
       ],
       control: {type: 'select'},
     },
