@@ -14,7 +14,7 @@ describe('Fetch Wallet Minimum Balance', () => {
           .get(wallet.address)
           .reply(
               200,
-              require('./__tests__/fetchAccountInfo.json'),
+              require('../../spec/fetchAccountInfo.json'),
           );
     }
     const {result, waitFor} = renderHook(

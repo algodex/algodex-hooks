@@ -15,7 +15,7 @@ describe('Fetch Wallet Orders', () => {
     if (process.env.TEST_ENV !== 'integration') {
       nock('https://testnet.algodex.com/algodex-backend')
           .get(uri)
-          .reply(200, require('./__tests__/fetchWalletOrders.json'));
+          .reply(200, require('../../spec/fetchWalletOrders.json'));
     }
     const {result, waitFor} = renderHook(
         () => useWalletOrdersQuery({wallet}),

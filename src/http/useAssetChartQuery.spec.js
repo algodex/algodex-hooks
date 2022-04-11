@@ -13,10 +13,10 @@ describe('Fetch Asset Chart', () => {
     if (process.env.TEST_ENV !== 'integration') {
       nock('https://testnet.algodex.com/algodex-backend')
           .get(`/orders.php?assetId=${asset.id}`)
-          .reply(200, require('./__tests__/fetchAssetOrders.json'));
+          .reply(200, require('../../spec/fetchAssetOrders.json'));
       nock('https://testnet.algodex.com/algodex-backend')
           .get(`/charts2.php?assetId=${asset.id}&chartTime=${asset.interval}`)
-          .reply(200, require('./__tests__/fetchAssetChart.json'));
+          .reply(200, require('../../spec/fetchAssetChart.json'));
     }
 
     const {result, waitFor} = renderHook(

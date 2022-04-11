@@ -11,7 +11,7 @@ describe('Fetch Asset Price', () => {
     if (process.env.TEST_ENV !== 'integration') {
       nock('https://testnet.algodex.com/algodex-backend')
           .get(`/assets.php?id=${asset.id}`)
-          .reply(200, require('./__tests__/fetchAssetPrice.json'));
+          .reply(200, require('../../spec/fetchAssetPrice.json'));
     }
     const {result, waitFor} = renderHook(
         () => useAssetPriceQuery({asset}),

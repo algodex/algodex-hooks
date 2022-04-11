@@ -17,7 +17,7 @@ describe('Fetch Wallet Trade History', () => {
           .get(uri)
           .reply(
               200,
-              require('./__tests__/fetchWalletTradeHistory.json'),
+              require('../../spec/fetchWalletTradeHistory.json'),
           );
     }
     const {result, waitFor} = renderHook(
