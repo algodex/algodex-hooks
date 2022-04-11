@@ -37,8 +37,7 @@ const FlexContainer = styled.div`
 
 /**
  * Spinner SVG
- * @type {StyledComponent}
- * @return {JSX.Element}
+ * @return {StyledComponent}
  */
 const Svg = styled.svg`
   animation: ${rotate} 2s linear infinite;
@@ -46,8 +45,9 @@ const Svg = styled.svg`
   height: ${({size}) => `${size}rem`};
   opacity: 0.75;
   will-change: transform;
+
   circle {
-   stroke: ${({color}) => color};
+    stroke: gray;
     stroke-width: 4;
     stroke-linecap: round;
     fill: none;
@@ -72,7 +72,7 @@ Svg.defaultProps = {
  * @todo Refactor to Tailwinds class="spinner"
  * @constructor
  */
-function Spinner({size, color, flex, ...rest}) {
+export function Spinner({size, color, flex, ...rest}) {
   return flex ? (
     <FlexContainer data-testid="spinner-flex-container">
       <Svg size={size} color={color} {...rest} data-testid="spinner-svg">

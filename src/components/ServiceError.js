@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-
 export const FlexContainer = styled.div`
   flex: 1 1 0%;
   display: flex;
@@ -15,6 +14,7 @@ const Message = styled.p`
   font-size: 0.875rem;
   font-weight: 600;
   margin: ${({flex}) => (flex ? '0.375rem 0' : '0 0 1rem 0')};
+  color: ${({color})=>`${color}`};
 `;
 
 /**
@@ -25,15 +25,14 @@ const Message = styled.p`
  * @param {string} props.color Component Color
  * @param {boolean} props.flex Enable Flex
  * @param {string} props.message Display Message
- * @param {JSX.Element} props.Icon Icon Component to Render
+ * @param {JSXElement} props.Icon Icon Component to Render
  * @return {JSX.Element}
  * @constructor
  */
 export function ServiceError({size, color, flex, message, Icon}) {
   const showMsg = message?.length > 0;
-
   return flex ? (
-    <FlexContainer>
+    <FlexContainer data-testid="flex-service">
       <Icon size={size} color={color} />
       {showMsg && (
         <Message color={color} flex={flex}>
@@ -42,7 +41,7 @@ export function ServiceError({size, color, flex, message, Icon}) {
       )}
     </FlexContainer>
   ) : (
-    <Message color={color} flex={flex}>
+    <Message data-testid="mssg-service" color={color} flex={flex}>
       <Icon size={size} color={color} />
       {message}
     </Message>
@@ -54,7 +53,7 @@ ServiceError.propTypes = {
   color: PropTypes.string,
   message: PropTypes.string,
   flex: PropTypes.bool,
-  Icon: PropTypes.element.isRequired,
+  Icon: PropTypes.element,
 };
 
 ServiceError.defaultProps = {
@@ -62,6 +61,7 @@ ServiceError.defaultProps = {
   color: 'gray.600',
   flex: false,
   message: 'Something went wrong!',
+  Icon: (props)=>(<div {...props}>Missing Icon!</div>),
 };
 
 export default ServiceError;
