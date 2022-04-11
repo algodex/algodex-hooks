@@ -1,19 +1,8 @@
 import {renderHook} from '@testing-library/react-hooks';
 import useWalletOrdersQuery from './useWalletOrdersQuery.js';
-import {wrapper, toOwnerInfoRoute, nock} from '../../test/setup.js';
+import {wrapper} from '../../test/setup.js';
 import wallet from '../../spec/Wallet.json';
-const INCLUDE_ASSET_INFO = true;
-
-if (process.env.TEST_ENV !== 'integration') {
-  nock()
-      .get(
-          toOwnerInfoRoute(
-              'orders',
-              {wallet, includeAssetInfo: INCLUDE_ASSET_INFO},
-          ),
-      )
-      .reply(200, require('../../spec/fetchWalletOrders.json'));
-}
+import '../../test/nock';
 
 describe('useWalletOrdersQuery', () => {
   it('should query orders for a wallet', async () => {
