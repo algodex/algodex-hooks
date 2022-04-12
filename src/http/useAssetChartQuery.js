@@ -19,7 +19,7 @@ const components = {
 /**
  *
  * @param {JSX.Element} Component
- * @param {object} options
+ * @param {object} [options]
  * @return {JSX.Element}
  */
 export function withAssetChartQuery(Component, options) {
@@ -30,6 +30,15 @@ export function withAssetChartQuery(Component, options) {
   });
 }
 
+/**
+ *
+ * @param {Object} a
+ * @param {Object} b
+ * @return {number}
+ */
+export function sortPriceByTime(a, b) {
+  return a.time < b.time ? -1 : a.time > b.time ? 1 : 0;
+}
 /**
  *
  * @param {object} data
@@ -55,9 +64,7 @@ export function mapPriceData(data) {
           };
         },
     ) || [];
-  return prices.sort(
-      (a, b) => (a.time < b.time ? -1 : a.time > b.time ? 1 : 0),
-  );
+  return prices.sort(sortPriceByTime);
 }
 
 /**
@@ -100,6 +107,15 @@ export function mapVolumeData(data, volUpColor, volDownColor) {
 }
 
 /**
+ *
+ * @param {Object} a
+ * @param {Object} b
+ * @return {number}
+ */
+export function sortByASAPrice(a, b) {
+  return b.asaPrice - a.asaPrice;
+}
+/**
  * {ask: String, bid: String, spread: String}
  * @todo: Move to SDK
  * @param {object} orderBook
@@ -108,12 +124,8 @@ export function mapVolumeData(data, volUpColor, volDownColor) {
 export function getBidAskSpread(orderBook) {
   const {buyOrders, sellOrders} = orderBook;
 
-  const bidPrice = buyOrders.sort(
-      (a, b) => b.asaPrice - a.asaPrice,
-  )?.[0]?.formattedPrice || 0;
-  const askPrice = sellOrders.sort(
-      (a, b) => a.asaPrice - b.asaPrice,
-  )?.[0]?.formattedPrice || 0;
+  const bidPrice = buyOrders.sort(sortByASAPrice)?.[0]?.formattedPrice || 0;
+  const askPrice = sellOrders.sort(sortByASAPrice)?.[0]?.formattedPrice || 0;
 
   const bid = floatToFixed(bidPrice);
   const ask = floatToFixed(askPrice);

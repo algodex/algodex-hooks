@@ -1,6 +1,8 @@
 import {renderHook} from '@testing-library/react-hooks';
 import {
   useAssetChartQuery,
+  sortByASAPrice,
+  sortPriceByTime,
 } from './useAssetChartQuery.js';
 import {wrapper} from '../../test/setup.js';
 import '../../test/nock';
@@ -25,5 +27,22 @@ describe('Fetch Asset Chart', () => {
     expect(Object.keys(result.current.data)).toEqual(
         ['overlay', 'volume', 'ohlc', 'isLoading', 'isError'],
     );
+  });
+  it('should sort by ASA Price', ()=>{
+    const unsorted = [{asaPrice: 123}, {asaPrice: 12345}];
+    expect(unsorted.sort(sortByASAPrice)).toEqual(
+        [{asaPrice: 12345}, {asaPrice: 123}],
+    );
+  });
+  it('should sort price by time', ()=>{
+    const unsorted = [{time: 1234}, {time: 123}];
+    expect(unsorted.sort(sortPriceByTime)).toEqual([
+      {
+        'time': 123,
+      },
+      {
+        'time': 1234,
+      },
+    ]);
   });
 });

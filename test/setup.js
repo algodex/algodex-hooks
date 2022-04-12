@@ -40,6 +40,14 @@ function makeApi() {
 }
 
 /**
+ * Example Test Component
+ * @param {Object} props
+ * @return {JSX.Element}
+ * @constructor
+ */
+export const TestComponent = (props)=><div data-testid="test">{props}</div>;
+
+/**
  *
  * @param {JSX.Element} children
  * @return {JSX.Element}
