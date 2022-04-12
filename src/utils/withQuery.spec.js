@@ -25,6 +25,30 @@ describe('withQuery High Order Component', () => {
         };
       });
     }
+    try {
+      withQuery(
+          MyComponent,
+          {
+            hook: useTestHook,
+          },
+      );
+    } catch (e) {
+      expect(e.message).toEqual('Must have Loading and Error components');
+    }
+    try {
+      withQuery(
+          MyComponent,
+          {
+            hook: useTestHook,
+            components: {
+              ServiceError,
+            },
+          },
+      );
+    } catch (e) {
+      expect(e.message).toEqual('Must have Loading and Error components');
+    }
+
     const Comp = withQuery(
         MyComponent,
         {
