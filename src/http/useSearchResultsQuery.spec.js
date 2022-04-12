@@ -11,7 +11,7 @@ describe('Fetch Search Result', () => {
     if (process.env.TEST_ENV !== 'integration') {
       nock('https://testnet.algodex.com/algodex-backend')
           .get(`/asset_search.php?query=${asset.query}`)
-          .reply(200, require('./__tests__/searchAssets.json'));
+          .reply(200, require('../../spec/searchAssets.json'));
     }
     const {result, waitFor} = renderHook(
         () => useSearchResultsQuery(asset),

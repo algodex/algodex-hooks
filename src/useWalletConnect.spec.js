@@ -2,16 +2,16 @@
  * @jest-environment jsdom
  */
 import {renderHook} from '@testing-library/react-hooks';
-import {useMyAlgoConnect} from './useMyAlgoConnect.js';
+import {useWalletConnect} from './useWalletConnect.js';
 import {wrapper} from '../test/setup.js';
 
-describe('useMyAlgoConnect', () => {
-  it('should connect to MyAlgoWallet', () => {
+describe('useWalletConnect', () => {
+  it('should connect to wallet connect', () => {
     const {result} = renderHook(
-        () => useMyAlgoConnect(),
+        () => useWalletConnect(),
         {wrapper},
     );
     // TODO: test result of connect/disconnect
-    expect(result.current).toBeInstanceOf(Function);
+    expect(result.current.connect).toBeInstanceOf(Function);
   });
 });

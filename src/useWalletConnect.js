@@ -1,6 +1,5 @@
 import {useCallback, useEffect, useRef} from 'react';
 
-import QRCodeModal from 'algorand-walletconnect-qrcode-modal';
 import useAlgodex from './useAlgodex';
 
 const ERROR = {
@@ -61,13 +60,9 @@ export function useWalletConnect() {
   };
   useEffect(() => {
     const initWalletConnect = async () => {
-      const WalletConnect = await import(
+      walletConnect.current = await import(
           '@algodex/algodex-sdk/lib/wallet/connectors/WalletConnect'
       );
-      walletConnect.current = window.temp = new WalletConnect({
-        bridge: 'https://bridge.walletconnect.org', // Required
-        qrcodeModal: QRCodeModal,
-      });
     };
     initWalletConnect();
   }, []);

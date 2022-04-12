@@ -18,7 +18,7 @@ const components = {
 /**
  *
  * @param {JSX.Element} Component
- * @param {object} options
+ * @param {object} [options]
  * @return {JSX.Element}
  */
 export function withWalletAssetsQuery(Component, options) {

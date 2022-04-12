@@ -5,7 +5,19 @@ import {
 } from './useAssetOrderbookQuery.js';
 import {wrapper} from '../../test/setup.js';
 
-describe('Fetch Orders', () => {
+describe('useAssetOrderbookQuery', () => {
+  it('should fail on invalid asset id', ()=>{
+    const {result} = renderHook(() => useAssetOrderbookQuery(
+        {asset: {}},
+    ), {wrapper});
+    expect(result.error.message).toEqual('Must have valid id!');
+  });
+  it('should fail on invalid decimals', ()=>{
+    const {result} = renderHook(() => useAssetOrderbookQuery(
+        {asset: {id: 123456}},
+    ), {wrapper});
+    expect(result.error.message).toEqual('Must have valid decimals!');
+  });
   it('should fetch asset chart', async () => {
     const asset = {
       id: 69410904,
@@ -14,12 +26,12 @@ describe('Fetch Orders', () => {
     if (process.env.TEST_ENV !== 'integration') {
       nock('https://testnet.algodex.com/algodex-backend')
           .get(`/orders.php?assetId=${asset.id}`)
-          .reply(200, require('./__tests__/fetchAssetOrders.json'));
+          .reply(200, require('../../spec/fetchAssetOrders.json'));
     }
     const {result, waitFor} = renderHook(() => useAssetOrderbookQuery(
         {asset},
     ), {wrapper});
-    console.debug('result', result);
+
     await waitFor(() => {
       return result.current.isSuccess;
     });
@@ -29,7 +41,13 @@ describe('Fetch Orders', () => {
     expect(result.current.data).toEqual({
       'isLoading': false,
       'orders': {
-        'buy': [],
+        'buy': [
+          {
+            'amount': 0.000404,
+            'price': '1234.123450',
+            'total': 0.000404,
+          },
+        ],
         'sell': [
           {
             'amount': 1,

@@ -11,7 +11,7 @@ describe('Fetch Asset Orders Only', () => {
     if (process.env.TEST_ENV !== 'integration') {
       nock('https://testnet.algodex.com/algodex-backend')
           .get(`/orders.php?assetId=${asset.id}`)
-          .reply(200, require('./__tests__/fetchAssetOrders.json'));
+          .reply(200, require('../../spec/fetchAssetOrders.json'));
     }
     const {result, waitFor} = renderHook(
         () => useAssetOrdersQuery({asset}),

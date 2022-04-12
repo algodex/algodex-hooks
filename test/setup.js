@@ -1,9 +1,10 @@
 import React from 'react';
 import {QueryClient, QueryClientProvider} from 'react-query';
+import {render} from '@testing-library/react';
 import AlgodexApi from '@algodex/algodex-sdk/lib/AlgodexApi.js';
 import {Provider} from '../src/components/AlgodexContext.js';
-
-
+import {matchers} from '@emotion/jest';
+expect.extend(matchers);
 const queryClient = new QueryClient();
 /**
  *
@@ -39,6 +40,14 @@ function makeApi() {
 }
 
 /**
+ * Example Test Component
+ * @param {Object} props
+ * @return {JSX.Element}
+ * @constructor
+ */
+export const TestComponent = (props)=><div data-testid="test">{props}</div>;
+
+/**
  *
  * @param {JSX.Element} children
  * @return {JSX.Element}
@@ -52,3 +61,7 @@ export function wrapper({children}) {
     </Provider>
   );
 }
+
+const customRender = (ui, options = {}) => render(ui, {wrapper, ...options});
+export * from '@testing-library/react';
+export {customRender as render};
