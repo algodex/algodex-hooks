@@ -11,7 +11,7 @@ describe('Fetch Wallet Assets', () => {
     if (process.env.TEST_ENV !== 'integration') {
       nock('https://testnet.algodex.com/algodex-backend')
           .get(`/wallet_assets.php?ownerAddr=${wallet.address}`)
-          .reply(200, require('./__tests__/fetchWalletAssets.json'));
+          .reply(200, require('../../spec/fetchWalletAssets.json'));
     }
     const {result, waitFor} = renderHook(
         () => useWalletAssetsQuery({wallet}),

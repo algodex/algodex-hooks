@@ -12,7 +12,7 @@ describe('Fetch Trade History', () => {
     if (process.env.TEST_ENV !== 'integration') {
       nock('https://testnet.algodex.com/algodex-backend')
           .get(`/trade_history.php?assetId=${asset.id}`)
-          .reply(200, require('./__tests__/fetchAssetTradeHistory.json'));
+          .reply(200, require('../../spec/fetchAssetTradeHistory.json'));
     }
     const {result, waitFor} = renderHook(
         () => useAssetTradeHistoryQuery({asset}),

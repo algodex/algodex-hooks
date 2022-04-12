@@ -1,25 +1,11 @@
-import nock from 'nock';
 import {renderHook} from '@testing-library/react-hooks';
 import useWalletTradeHistoryQuery from './useWalletTradeHistoryQuery.js';
 import {wrapper} from '../../test/setup.js';
+import wallet from '../../spec/Wallet.json';
+import '../../test/nock';
 
-describe('Fetch Wallet Trade History', () => {
-  it('should fetch trade history for the wallet', async () => {
-    const wallet = {
-      address: 'ZXPEYJMWFLULILWJHWB3Y6DFI4ADE7XVMGARAH734ZJ5ECXAR4YVMRZ4EM',
-      includeAssetInfo: true,
-    };
-    const uri = `/trade_history.php?ownerAddr=${wallet.address}`+
-      `&getAssetInfo=${wallet.includeAssetInfo}`;
-
-    if (process.env.TEST_ENV !== 'integration') {
-      nock('https://testnet.algodex.com/algodex-backend')
-          .get(uri)
-          .reply(
-              200,
-              require('./__tests__/fetchWalletTradeHistory.json'),
-          );
-    }
+describe('useWalletTradeHistoryQuery', () => {
+  it('should query trade history for a wallet', async () => {
     const {result, waitFor} = renderHook(
         () => useWalletTradeHistoryQuery({wallet}),
         {wrapper},

@@ -43,7 +43,7 @@ export function useExplorerAssetInfo({asset, options}) {
 /**
  *
  * @param {JSX.Element} Component
- * @param {object} options
+ * @param {object} [options]
  * @return {*}
  */
 export function withExplorerAssetInfo(Component, options) {
