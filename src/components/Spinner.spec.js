@@ -4,18 +4,29 @@
 import React from 'react';
 import {render} from '../../test/setup';
 import {Spinner} from './Spinner';
-
+const defaultProps = {
+  'data-testid': 'spinner-element',
+  'color': 'gray',
+  'flex': true,
+  'size': 5,
+};
+const tests = [
+  defaultProps,
+  {...defaultProps, flex: false},
+];
 describe('Spinner', () => {
-  it('should render a spinner', () => {
-    const {queryByTestId} = render(
-        <Spinner
-          data-testid="spinner-element"
-          color={'gray'}
-          flex={true}
-          size={5}
-        />,
-    );
-    expect(queryByTestId('spinner-flex-container')).not.toBeNull();
-    expect(queryByTestId('spinner-svg')).not.toBeNull();
+  tests.forEach((props)=>{
+    it(`should render a ${props.flex ? 'flex spinner': 'spinner'}`, () => {
+      const {queryByTestId} = render(
+          <Spinner {...props}/>,
+      );
+      if (props.flex) {
+        expect(queryByTestId('spinner-flex-container')).not.toBeNull();
+      } else {
+        expect(queryByTestId('spinner-flex-container')).toBeNull();
+      }
+
+      expect(queryByTestId('spinner-svg')).not.toBeNull();
+    });
   });
 });
