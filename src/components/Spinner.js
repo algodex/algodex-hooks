@@ -73,17 +73,21 @@ Svg.defaultProps = {
  * @constructor
  */
 export function Spinner({size, color, flex, ...rest}) {
-  return flex ? (
-    <FlexContainer data-testid="spinner-flex-container">
+  if (flex) {
+    return (
+      <FlexContainer data-testid="spinner-flex-container">
+        <Svg size={size} color={color} {...rest} data-testid="spinner-svg">
+          <circle cx="25" cy="25" r="20" />
+        </Svg>
+      </FlexContainer>
+    );
+  } else {
+    return (
       <Svg size={size} color={color} {...rest} data-testid="spinner-svg">
         <circle cx="25" cy="25" r="20" />
       </Svg>
-    </FlexContainer>
-  ) : (
-    <Svg size={size} color={color} {...rest} data-testid="spinner-svg">
-      <circle cx="25" cy="25" r="20" />
-    </Svg>
-  );
+    );
+  }
 }
 
 Spinner.propTypes = {
