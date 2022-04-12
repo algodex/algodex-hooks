@@ -31,21 +31,25 @@ const Message = styled.p`
  */
 export function ServiceError({size, color, flex, message, Icon}) {
   const showMsg = message?.length > 0;
-  return flex ? (
-    <FlexContainer data-testid="flex-service">
-      <Icon size={size} color={color} />
-      {showMsg && (
-        <Message color={color} flex={flex}>
-          {message}
-        </Message>
-      )}
-    </FlexContainer>
-  ) : (
-    <Message data-testid="mssg-service" color={color} flex={flex}>
-      <Icon size={size} color={color} />
-      {message}
-    </Message>
-  );
+  if (flex) {
+    return (
+      <FlexContainer data-testid="flex-service">
+        <Icon size={size} color={color} />
+        {showMsg && (
+          <Message color={color} flex={flex}>
+            {message}
+          </Message>
+        )}
+      </FlexContainer>
+    );
+  } else {
+    return (
+      <Message data-testid="mssg-service" color={color} flex={flex}>
+        <Icon size={size} color={color} />
+        {message}
+      </Message>
+    );
+  }
 }
 
 ServiceError.propTypes = {
