@@ -36,7 +36,7 @@ export function ServiceError({size, color, flex, message, Icon}) {
       <FlexContainer data-testid="flex-service">
         <Icon size={size} color={color} />
         {showMsg && (
-          <Message color={color} flex={flex}>
+          <Message data-testid="msg-flex" color={color} flex={flex}>
             {message}
           </Message>
         )}
