@@ -22,7 +22,7 @@
     "millify": "^4.0.0"
   },
   "peerDependencies": {
-    "@algodex/algodex-sdk": "2.0.0-next.1",
+    "@algodex/algodex-sdk": "2.0.0-next.3",
     "@randlabs/myalgo-connect": "^1.0.1",
     "algosdk": "^1.14.0",
     "big.js": "^6.1.1",
@@ -30,7 +30,7 @@
     "react-query": "^3.34.19"
   },
   "devDependencies": {
-    "@algodex/algodex-sdk": "2.0.0-next.1",
+    "@algodex/algodex-sdk": "2.0.0-next.3",
     "@babel/core": "^7.17.8",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
