@@ -29,32 +29,31 @@ export default function useAlgodex() {
   // Watch for key changes
   useWatch(algodex, ['config', 'addresses', 'wallet', 'asset']);
 
-  // Check for state
-  const hasWalletAndAddresses =
-    typeof algodex !== 'undefined' &&
-    typeof algodex.addresses !== 'undefined' &&
-    algodex.addresses.length > 0 &&
-    typeof algodex.wallet !== 'undefined' &&
-    typeof algodex.wallet.address !== 'undefined';
+  const hasWallet = typeof algodex !== 'undefined' &&
+      typeof algodex.wallet !== 'undefined' &&
+      typeof algodex.wallet.address !== 'undefined';
 
-  // TODO move to a proper useAccountInfo
-  const {data, isSuccess} = useQuery(
-      ['fetchAccountInfo', algodex.wallet?.address],
+  const hasAddresses = typeof algodex !== 'undefined' &&
+      typeof algodex.addresses !== 'undefined' &&
+      algodex.addresses.length > 0;
+
+  // TODO move to a proper useAllAccountsInfo
+  const {data: _addresses, isSuccess: isAccountsSuccess} = useQuery(
+      ['fetchAccounts', algodex.addresses?.map((w)=>w.address)],
       () => algodex.http.indexer.fetchAccounts(algodex.addresses),
       {
-        enabled: hasWalletAndAddresses,
+        enabled: hasAddresses,
         refetchInterval: 3000,
       },
   );
-
-  const isConnected = hasWalletAndAddresses && isSuccess;
-
-  // Set the wallet when account info resolves
+  const isConnected = hasWallet && hasAddresses && isAccountsSuccess;
+  // Set the addresses when account info resolves
   useEffect(()=>{
-    if (typeof data !== 'undefined' && isConnected) {
-      algodex.setAddresses(data, {validate: false, merge: true});
+    if (typeof _addresses !== 'undefined' && isAccountsSuccess) {
+      // console.log('updateAddress from effects');
+      algodex.setAddresses(_addresses, {validate: false, merge: true});
     }
-  }, [data]);
+  }, [_addresses]);
 
   // Return algodex and Connect
   return {

@@ -22,6 +22,7 @@ export default {
       'react-dom',
       '@emotion/core',
       '@emotion/styled',
+      '@emotion/react',
       'axios',
       'ajv',
       'ajv-formats',
