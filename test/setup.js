@@ -24,6 +24,10 @@ const properties = {
       'uri': 'https://testnet.algodex.com/algodex-backend',
       'token': '',
     },
+    'tinyman': {
+      'uri': 'https://testnet.analytics.tinyman.org',
+      'token': '',
+    },
   },
 };
 let api;
