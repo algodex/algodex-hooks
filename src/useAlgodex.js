@@ -1,7 +1,5 @@
-import {useContext, useEffect} from 'react';
-
+import {useContext} from 'react';
 import {AlgodexContext} from './components/AlgodexContext.js';
-import {useQuery} from 'react-query';
 import useWatch from './utils/useWatch.js';
 
 /**
@@ -30,30 +28,14 @@ export default function useAlgodex() {
   useWatch(algodex, ['config', 'addresses', 'wallet', 'asset']);
 
   const hasWallet = typeof algodex !== 'undefined' &&
-      typeof algodex.wallet !== 'undefined' &&
-      typeof algodex.wallet.address !== 'undefined';
+    typeof algodex.wallet !== 'undefined' &&
+    typeof algodex.wallet.address !== 'undefined';
 
   const hasAddresses = typeof algodex !== 'undefined' &&
-      typeof algodex.addresses !== 'undefined' &&
-      algodex.addresses.length > 0;
+    typeof algodex.addresses !== 'undefined' &&
+    algodex.addresses.length > 0;
 
-  // TODO move to a proper useAllAccountsInfo
-  const {data: _addresses, isSuccess: isAccountsSuccess} = useQuery(
-      ['fetchAccounts', algodex.addresses?.map((w)=>w.address)],
-      () => algodex.http.indexer.fetchAccounts(algodex.addresses),
-      {
-        enabled: hasAddresses,
-        refetchInterval: 3000,
-      },
-  );
-  const isConnected = hasWallet && hasAddresses && isAccountsSuccess;
-  // Set the addresses when account info resolves
-  useEffect(()=>{
-    if (typeof _addresses !== 'undefined' && isAccountsSuccess) {
-      // console.log('updateAddress from effects');
-      algodex.setAddresses(_addresses, {validate: false, merge: true});
-    }
-  }, [_addresses]);
+  const isConnected = hasWallet && hasAddresses;
 
   // Return algodex and Connect
   return {
@@ -61,16 +43,10 @@ export default function useAlgodex() {
     // connect,
     isConnected,
     http: algodex.http,
-    order: algodex.order,
-    setOrder: (...args)=>algodex.setOrder(...args),
     wallet: algodex.wallet,
     setWallet: (...args)=>algodex.setWallet(...args),
-    asset: algodex.asset,
-    setAsset: (...args)=>algodex.setAsset(...args),
     config: algodex.config,
     setConfig: (...args)=>algodex.setConfig(...args),
-    addresses: algodex.addresses,
-    setAddresses: (...args)=>algodex.setAddresses(...args),
     placeOrder: (...args)=>algodex.placeOrder(...args),
   };
 }

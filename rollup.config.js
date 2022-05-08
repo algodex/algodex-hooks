@@ -2,7 +2,7 @@ import fs from 'fs';
 import babel from '@rollup/plugin-babel';
 import alias from '@rollup/plugin-alias';
 // import json from '@rollup/plugin-json';
-import {terser} from 'rollup-plugin-terser';
+// import {terser} from 'rollup-plugin-terser';
 import commonjs from '@rollup/plugin-commonjs';
 import {nodeResolve} from '@rollup/plugin-node-resolve';
 import path from 'path';
@@ -53,7 +53,7 @@ export default {
     ),
     commonjs(),
     nodeResolve({browser: true}),
-    terser(),
+    // terser(),
   ],
   output: {
     file: pkg.main,
