@@ -1,4 +1,4 @@
-import ValidationError from '@algodex/algodex-sdk/lib/Errors/ValidationError';
+import ValidationError from '@algodex/algodex-sdk/lib/error/ValidationError';
 import {renderHook} from '@testing-library/react-hooks';
 import useAlgodex from './useAlgodex.js';
 import {wrapper} from '../test/setup.js';

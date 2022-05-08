@@ -1,5 +1,5 @@
 module.exports = {
-  // globalSetup: './jest.setup.js',
+  setupFilesAfterEnv: ['./jest.setup.js'],
   testEnvironment: 'node',
   coverageThreshold: {
     // TODO: Raise confidence
