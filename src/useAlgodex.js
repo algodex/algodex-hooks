@@ -1,6 +1,6 @@
 import {useContext} from 'react';
 import {AlgodexContext} from './components/AlgodexContext.js';
-import useWatch from './utils/useWatch.js';
+// import useWatch from './utils/useWatch.js';
 
 /**
  * @typedef {Object} AlgodexAPIHook
@@ -25,28 +25,22 @@ export default function useAlgodex() {
   // Get AlgodexAPI Context
   const algodex = useContext(AlgodexContext);
   // Watch for key changes
-  useWatch(algodex, ['config', 'addresses', 'wallet', 'asset']);
+  // useWatch(algodex, ['wallet']);
 
-  const hasWallet = typeof algodex !== 'undefined' &&
+  // Check connection status
+  const isConnected = typeof algodex !== 'undefined' &&
     typeof algodex.wallet !== 'undefined' &&
-    typeof algodex.wallet.address !== 'undefined';
+    typeof algodex.wallet.address !== 'undefined' &&
+    typeof algodex.wallet.connector !== 'undefined' &&
+    algodex.wallet.connector.connected;
 
-  const hasAddresses = typeof algodex !== 'undefined' &&
-    typeof algodex.addresses !== 'undefined' &&
-    algodex.addresses.length > 0;
-
-  const isConnected = hasWallet && hasAddresses;
-
-  // Return algodex and Connect
+  // Return Algodex
   return {
     algodex,
-    // connect,
     isConnected,
     http: algodex.http,
     wallet: algodex.wallet,
     setWallet: (...args)=>algodex.setWallet(...args),
-    config: algodex.config,
-    setConfig: (...args)=>algodex.setConfig(...args),
     placeOrder: (...args)=>algodex.placeOrder(...args),
   };
 }
