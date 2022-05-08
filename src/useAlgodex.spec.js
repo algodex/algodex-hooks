@@ -11,19 +11,12 @@ describe('useAlgodex Hook', () => {
     );
     expect(Object.keys(result.current)).toEqual([
       'algodex', 'isConnected',
-      'http', 'order',
-      'setOrder', 'wallet',
-      'setWallet', 'asset',
-      'setAsset', 'config',
-      'setConfig', 'addresses',
-      'setAddresses', 'placeOrder',
+      'http', 'wallet', 'setWallet',
+      'config', 'setConfig',
+      'placeOrder',
     ]);
 
     expect(()=>result.current.setWallet({})).toThrowError(ValidationError);
-    expect(()=>result.current.setAsset({})).toThrowError(ValidationError);
-    expect(()=>result.current.setAddresses({})).toThrowError(ValidationError);
-    result.current.setOrder({type: 'sell'});
-    expect(result.current.algodex.order.type).toEqual('sell');
     expect(()=>result.current.setConfig({})).toThrowError(ValidationError);
     // expect(()=>result.current.placeOrder()).toThrowError(ValidationError);
   });
