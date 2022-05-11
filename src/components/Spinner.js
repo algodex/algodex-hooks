@@ -30,6 +30,7 @@ const dash = keyframes`
  */
 const FlexContainer = styled.div`
   flex: 1 1 0%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,7 +100,7 @@ Spinner.propTypes = {
 Spinner.defaultProps = {
   size: 5,
   color: 'gray.600',
-  flex: false,
+  flex: true,
 };
 
 export default Spinner;

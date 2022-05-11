@@ -12,12 +12,10 @@ describe('useAlgodex Hook', () => {
     expect(Object.keys(result.current)).toEqual([
       'algodex', 'isConnected',
       'http', 'wallet', 'setWallet',
-      'config', 'setConfig',
       'placeOrder',
     ]);
 
     expect(()=>result.current.setWallet({})).toThrowError(ValidationError);
-    expect(()=>result.current.setConfig({})).toThrowError(ValidationError);
     // expect(()=>result.current.placeOrder()).toThrowError(ValidationError);
   });
 });
