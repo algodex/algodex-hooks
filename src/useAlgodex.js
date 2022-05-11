@@ -1,6 +1,5 @@
 import {useContext} from 'react';
 import {AlgodexContext} from './components/AlgodexContext.js';
-// import useWatch from './utils/useWatch.js';
 
 /**
  * @typedef {Object} AlgodexAPIHook
@@ -24,8 +23,6 @@ import {AlgodexContext} from './components/AlgodexContext.js';
 export default function useAlgodex() {
   // Get AlgodexAPI Context
   const algodex = useContext(AlgodexContext);
-  // Watch for key changes
-  // useWatch(algodex, ['wallet']);
 
   // Check connection status
   const isConnected = typeof algodex !== 'undefined' &&
