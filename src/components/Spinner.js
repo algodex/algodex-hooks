@@ -99,7 +99,7 @@ Spinner.propTypes = {
 
 Spinner.defaultProps = {
   size: 5,
-  color: 'gray.600',
+  color: 'gray.800',
   flex: true,
 };
 
