@@ -1,7 +1,6 @@
-import {useCallback, useEffect, useRef} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 
-import useAlgodex from './useAlgodex';
-
+import QRCodeModal from 'algorand-walletconnect-qrcode-modal';
 const ERROR = {
   FAILED_TO_INIT: 'MyAlgo Wallet failed to initialize.',
   FAILED_TO_CONNECT: 'MyAlgo Wallet failed to connect.',
@@ -9,14 +8,12 @@ const ERROR = {
 
 /**
  * Use Wallet Connect query
+ * @param {Function} onConnect On Connect Callback
+ * @param {Function} onDisconnect On Disconnect Callback
  * @return {object}
  */
-export function useWalletConnect() {
-  /**
-   * State Setter
-   */
-  const {setAddresses, algodex, setWallet} = useAlgodex();
-
+export default function useWalletConnect(onConnect, onDisconnect) {
+  const [addresses, setAddresses] = useState([]);
   /**
    * Instance referenc
    */
@@ -46,36 +43,39 @@ export function useWalletConnect() {
           connector: walletConnect.current,
         };
       });
-      setAddresses(_addresses, {validate: false, merge: true, throws: false});
-      setWallet(_addresses[0], {validate: false, merge: true});
+      setAddresses(_addresses);
     } catch (e) {
       console.error(ERROR.FAILED_TO_CONNECT, e);
     }
   };
   const disconnect = () => {
-    console.log('hello', walletConnect.current);
     if (walletConnect.current.connected) {
       walletConnect.current.killSession();
     }
   };
   useEffect(() => {
     const initWalletConnect = async () => {
-      walletConnect.current = await import(
-          '@algodex/algodex-sdk/lib/wallet/connectors/WalletConnect'
-      );
+      const WalletConnect = (await import('@walletconnect/client')).default;
+      WalletConnect.prototype.sign = (
+        await import('@algodex/algodex-sdk/lib/wallet/signers/WalletConnect')
+      ).default;
+      walletConnect.current = new WalletConnect({
+        bridge: 'https://bridge.walletconnect.org', // Required
+        qrcodeModal: QRCodeModal,
+      });
+      walletConnect.current.connected = false;
     };
     initWalletConnect();
   }, []);
 
-  const handleDisconnect = useCallback((err) => {
-    console.log('DISCONNECTED');
-    if (err) throw err;
-    if (typeof algodex !== 'undefined' && Array.isArray(algodex.addresses)) {
-      setAddresses(
-          algodex.addresses.filter((addr) => addr.type !== 'wallet-connect'),
-          {merge: false, validate: false});
-    }
-  }, [setAddresses, algodex.addresses]);
+  const handleDisconnect = useCallback(
+      (err) => {
+        console.log('DISCONNECTED');
+        if (err) throw err;
+        onDisconnect(addresses);
+      },
+      [onDisconnect],
+  );
 
   const handleConnected = (err, payload) => {
     console.log('CONNECTED');
@@ -96,9 +96,8 @@ export function useWalletConnect() {
       connector: walletConnect.current,
       address: acct,
     }));
-
-    setAddresses(_addresses, {merge: true, validate: false});
-
+    console.log('connected here');
+    onConnect(_addresses);
     QRCodeModal.close();
   };
   useEffect(() => {
@@ -109,10 +108,12 @@ export function useWalletConnect() {
       walletConnect.current.on('disconnect', handleDisconnect);
     }
     return () => {
-      walletConnect.current.off('connect');
-      walletConnect.current.off('session_update');
-      walletConnect.current.off('disconnect');
+      if (typeof walletConnect.current !== 'undefined') {
+        walletConnect.current.off('connect');
+        walletConnect.current.off('session_update');
+        walletConnect.current.off('disconnect');
+      }
     };
   }, [walletConnect.current]);
-  return {connect, disconnect};
+  return {connect, disconnect, connector: walletConnect.current};
 }

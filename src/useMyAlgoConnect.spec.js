@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import {renderHook} from '@testing-library/react-hooks';
-import {useMyAlgoConnect} from './useMyAlgoConnect.js';
+import useMyAlgoConnect from './useMyAlgoConnect.js';
 import {wrapper} from '../test/setup.js';
 
 describe('useMyAlgoConnect', () => {
@@ -12,6 +12,6 @@ describe('useMyAlgoConnect', () => {
         {wrapper},
     );
     // TODO: test result of connect/disconnect
-    expect(result.current).toBeInstanceOf(Function);
+    expect(result.current).toBeInstanceOf(Object);
   });
 });
