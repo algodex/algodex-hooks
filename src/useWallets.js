@@ -1,4 +1,4 @@
-import {useAlgodex} from '@algodex/algodex-hooks';
+import useAlgodex from './useAlgodex';
 import useMyAlgoConnect from './useMyAlgoConnect';
 import useWalletConnect from './useWalletConnect';
 import {useCallback, useEffect, useState} from 'react';

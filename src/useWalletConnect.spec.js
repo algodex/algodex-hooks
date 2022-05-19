@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import {renderHook} from '@testing-library/react-hooks';
-import {useWalletConnect} from './useWalletConnect.js';
+import useWalletConnect from './useWalletConnect.js';
 import {wrapper} from '../test/setup.js';
 
 describe('useWalletConnect', () => {
