@@ -10,34 +10,15 @@ import resolve from '@rollup/plugin-node-resolve';
 const pkg = JSON.parse(
     fs.readFileSync('./package.json', {encoding: 'utf-8'}),
 );
+
+const projectRootDir = path.resolve(__dirname);
 const customResolver = resolve({
   extensions: ['.js', '.jsx'],
 });
-const projectRootDir = path.resolve(__dirname);
-export default {
-  input: 'src',
-  external: (id) => {
-    return /@algodex/.test(id) || [
-      'react',
-      'react-dom',
-      '@emotion/core',
-      '@emotion/styled',
-      '@emotion/react',
-      'axios',
-      'ajv',
-      'ajv-formats',
-      'react-query',
-      'prop-types',
-      'react-is',
-      'lodash',
-      'big.js',
-      '@randlabs/myalgo-connect',
-      '@walletconnect/client',
-      'algosdk',
-    ].includes(id);
-  },
-  plugins: [
-    // json(),
+
+const getPlugins = function(helper) {
+  return [
+  // json(),
     alias({
       entries: [
         {
@@ -49,16 +30,86 @@ export default {
     }),
     babel(
         {
-          babelHelpers: 'bundled',
+          babelHelpers: helper,
+          exclude: /^(.+\/)?node_modules\/.+$/,
         },
     ),
-    commonjs(),
     nodeResolve({browser: true}),
-    // terser(),
-  ],
-  output: {
-    file: pkg.main,
-    format: 'cjs',
-    sourcemap: true,
-  },
+  // terser(),
+  ];
 };
+
+/**
+ * @param {string} id The ID to test
+ * @return {boolean}
+ */
+function external(id) {
+  return /@algodex/.test(id) || [
+    'react',
+    'react-dom',
+    '@emotion/core',
+    '@emotion/styled',
+    '@emotion/react',
+    'axios',
+    'ajv',
+    'ajv-formats',
+    'react-query',
+    'prop-types',
+    'react-is',
+    'lodash',
+    'lodash/lang',
+    'millify',
+    'big.js',
+    '@randlabs/myalgo-connect',
+    '@walletconnect/client',
+    'algorand-walletconnect-qrcode-modal',
+    'algosdk',
+  ].includes(id);
+}
+
+const input = 'src';
+const banner = `/**
+ * algodex/algodex-hooks ${pkg.version}
+ *
+ * Copyright (c)  Algodex VASP (BVI) Corp., 2022
+ *
+ * All Rights Reserved.
+ *
+ * @license BSL
+ */`;
+
+
+/**
+ * Rollup Configuration
+ * @return {*}
+ */
+export default function() {
+  return [
+    {
+      input,
+      external,
+      plugins: [...getPlugins('runtime'), commonjs()],
+      output: {
+        banner,
+        dir: './dist/cjs',
+        format: 'cjs',
+        sourcemap: true,
+        exports: 'named',
+      },
+    },
+    // {
+    //   input,
+    //   external,
+    //   plugins: getPlugins('bundled'),
+    //   output: {
+    //     banner,
+    //     dir: './dist/esm',
+    //     // file: pkg.main,
+    //     format: 'esm',
+    //     sourcemap: true,
+    //     // preserveModules: true,
+    //     exports: 'named',
+    //   },
+    // },
+  ];
+}
