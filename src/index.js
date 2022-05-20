@@ -1,8 +1,14 @@
 export {
   default as useAlgodex,
 } from './useAlgodex.js';
-export * from './useMyAlgoConnect';
-export * from './useWalletConnect';
-export * from './useWallets';
-export * from './components';
-export * from './http';
+export {
+  default as useMyAlgoConnect,
+} from './useMyAlgoConnect.js';
+export {
+  default as useWalletConnect,
+} from './useWalletConnect';
+export {
+  default as useWallets,
+} from './useWallets';
+export * from './components/index.js';
+export * from './http/index.js';

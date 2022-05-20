@@ -32,6 +32,7 @@ export default {
       'lodash',
       'big.js',
       '@randlabs/myalgo-connect',
+      '@walletconnect/client',
       'algosdk',
     ].includes(id);
   },
