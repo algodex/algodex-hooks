@@ -1,6 +1,7 @@
 import * as cjs from './dist/cjs';
 const interfaces = [
   'useAlgodex',
+  'useWallets',
   'useAssetChartQuery',
   'useAssetOrderbookQuery',
   'useAssetOrdersQuery',
