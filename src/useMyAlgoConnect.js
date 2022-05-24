@@ -1,25 +1,6 @@
 import {useEffect, useRef} from 'react';
 import algosdk from 'algosdk';
-/**
- *
- * @param {Array} txns
- */
-function assignGroups(txns) {
-  const groupID = algosdk.computeGroupID(txns);
-  for (let i = 0; i < txns.length; i++) {
-    txns[i].group = groupID;
-  }
-}
-const groupBy = (items, key) => items.reduce(
-    (result, item) => ({
-      ...result,
-      [item[key]]: [
-        ...(result[item[key]] || []),
-        item,
-      ],
-    }),
-    {},
-);
+
 const ERROR = {
   FAILED_TO_INIT: 'MyAlgo Wallet failed to initialize.',
   FAILED_TO_CONNECT: 'MyAlgo Wallet failed to connect.',
@@ -38,73 +19,41 @@ export default function useMyAlgoConnect(onConnect, onDisconnect) {
    * MyAlgoConnect Signer
    *
    * @todo move to SDK
-   * @param {Object} outerTxns
+   * @param {Array<Orders>} orders A list of Compiled Orders
    * @return {Promise<*>}
    */
-  async function signer(outerTxns) {
-    console.debug('inside signMyAlgoTransactions transactions');
-    const groups = groupBy(outerTxns, 'groupNum');
-
-    const numberOfGroups = Object.keys(groups);
-
-    const groupedGroups = numberOfGroups.map((group) => {
-      const allTxFormatted = groups[group].map((txn) => {
-        return txn.unsignedTxn;
-      });
-      assignGroups(allTxFormatted);
-      return allTxFormatted;
+  async function signer(orders) {
+    const orderTxns = orders.map((execObj) => execObj.contract.txns);
+    orderTxns.forEach((outerTxns) => algosdk.assignGroupID(
+        outerTxns.map((txn) => txn.unsignedTxn),
+    ));
+    const outerTxns = [];
+    orderTxns.forEach((txns) => {
+      txns.forEach((txn) => outerTxns.push(txn));
     });
 
-    const flattenedGroups = groupedGroups.flat();
+    // Sign the lsig transactions
+    const signedLsigs = outerTxns
+        .filter((outerTxn) => outerTxn.lsig instanceof algosdk.LogicSigAccount)
+        .map((outerTxn) => {
+          return algosdk.signLogicSigTransactionObject(
+              outerTxn.unsignedTxn,
+              outerTxn.lsig,
+          );
+        });
 
-    const txnsForSig = [];
-
-    /**
-     * Is UserSigned Transaction
-     * @param {Object} outerTxn
-     * @return {boolean}
-     */
-    function isUserSigned(outerTxn) {
-      return typeof outerTxn.lsig === 'undefined' &&
-        typeof outerTxn.senderAcct !== 'undefined';
-    }
-    for (let i = 0; i < outerTxns.length; i++) {
-      outerTxns[i].unsignedTxn = flattenedGroups[i];
-      if (isUserSigned(outerTxns[i])) {
-        txnsForSig.push(flattenedGroups[i].toByte());
-      }
-    }
-
+    // Sign the user transactions
     // eslint-disable-next-line no-invalid-this
-    const signedTxnsFromUser = await this.signTransaction(txnsForSig);
+    const signedTxnsFromUser = await this.signTransaction(
+        outerTxns
+            .filter((outerTxn) => typeof outerTxn.senderAcct !== 'undefined')
+            .map((outerTxn) => {
+              return outerTxn.unsignedTxn.toByte();
+            }),
+    );
 
-    if (Array.isArray(signedTxnsFromUser)) {
-      let userSigIndex = 0;
-      for (let i = 0; i < outerTxns.length; i++) {
-        if (isUserSigned(outerTxns[i])) {
-          outerTxns[i].signedTxn = signedTxnsFromUser[userSigIndex].blob;
-          userSigIndex++;
-        }
-      }
-    } else {
-      for (let i = 0; i < outerTxns.length; i++) {
-        if (isUserSigned(outerTxns[i])) {
-          outerTxns[i].signedTxn = signedTxnsFromUser.blob;
-          break;
-        }
-      }
-    }
-
-    for (let i = 0; i < outerTxns.length; i++) {
-      if (!isUserSigned(outerTxns[i])) {
-        const signedLsig = algosdk.signLogicSigTransactionObject(
-            outerTxns[i].unsignedTxn,
-            outerTxns[i].lsig,
-        );
-        outerTxns[i].signedTxn = signedLsig.blob;
-      }
-    }
-    return outerTxns.map((o) => o.signedTxn);
+    return [...signedLsigs, ...signedTxnsFromUser]
+        .map((txn) => ({signedTxn: txn}));
   }
 
   const connect = async () => {
