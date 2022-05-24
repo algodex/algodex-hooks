@@ -16,16 +16,32 @@ export default function useMyAlgoConnect(onConnect, onDisconnect) {
   const myAlgoWallet = useRef();
 
   const disconnect = () => {
-    // setAddresses(
-    //   algodex.addresses.filter((addr) => addr.type !== 'my-algo-wallet'),
-    //   { merge: false, validate: false }
-    // )
-    // if (algodex.addresses.length) {
-    //   setWallet(algodex.addresses[0], { validate: false, merge: true })
-    // }
+    onDisconnect();
   };
-  const connect = () =>{
+  const connect = async () => {
+    try {
+      // Something went wrong!
+      if (!myAlgoWallet.current) {
+        console.error(ERROR.FAILED_TO_INIT);
+        return;
+      }
 
+      // Get Accounts from MyAlgo
+      const accounts = await myAlgoWallet.current.connect();
+
+      // Map the connector to the address list
+      const _addresses = accounts.map((acct) => {
+        acct.type = 'my-algo-wallet';
+        acct.connector = myAlgoWallet.current;
+        acct.connector.connected = true;
+        return acct;
+      });
+      console.debug('Setting Address form myAlgoConnect', _addresses);
+      // Set Addresses
+      onConnect(_addresses);
+    } catch (e) {
+      console.error(ERROR.FAILED_TO_CONNECT, e);
+    }
   };
   useEffect(() => {
     const initMyAlgoWallet = async () => {
