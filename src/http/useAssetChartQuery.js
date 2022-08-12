@@ -108,6 +108,27 @@ export function mapVolumeData(data, volUpColor, volDownColor) {
 
 /**
  *
+ * @param {object} data
+ * @param {string} volUpColor
+ * @param {string} volDownColor
+ * @return {array}
+ */
+function mapAlgoVolumeData(data, volUpColor, volDownColor) {
+  const mappedData = data?.chart_data?.map(({ algoVolume, unixTime }) => {
+    const time = parseInt(unixTime)
+    return {
+      time: time,
+      value: algoVolume
+    }
+  })
+  const volumeColors = data?.chart_data.map(({ open, close }) =>
+    open > close ? volDownColor : volUpColor
+  )
+  return mappedData?.map((md, i) => ({ ...md, color: volumeColors[i] })) || []
+}
+
+/**
+ *
  * @param {Object} a
  * @param {Object} b
  * @return {number}
@@ -193,6 +214,10 @@ export function useAssetChartQuery({
       () => mapVolumeData(data, VOLUME_UP_COLOR, VOLUME_DOWN_COLOR),
       [data],
   );
+  const algoVolumeData  = useMemo(
+    () => mapAlgoVolumeData(data, VOLUME_UP_COLOR, VOLUME_DOWN_COLOR),
+    [data],
+);
   const ohlcOverlay = useMemo(
       () => getOhlc(data),
       [data],
@@ -201,6 +226,8 @@ export function useAssetChartQuery({
   const volume = millify(
       data?.chart_data[data?.chart_data.length - 1]?.asaVolume || 0,
   );
+
+  const algoVolume = millify(data?.chart_data[data?.chart_data.length - 1]?.algoVolume || 0)
 
   const isLoading = isOrdersLoading || isChartLoading;
   const isError = isOrdersError || isChartError;
@@ -211,8 +238,10 @@ export function useAssetChartQuery({
         ohlc: ohlcOverlay,
         orderbook: {bid, ask, spread},
         volume,
+        algoVolume
       },
       volume: volumeData,
+      algoVolume: algoVolumeData,
       ohlc: priceData,
       isLoading,
       isError,
