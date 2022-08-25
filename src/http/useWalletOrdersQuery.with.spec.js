@@ -1,14 +1,15 @@
+import {TestComponent, render} from '../../test/setup';
+
 /**
  * @jest-environment jsdom
  */
 import React from 'react';
+import wallet from '../../spec/Wallet.json';
 import {
   withWalletOrdersQuery,
 } from './useWalletOrdersQuery.js';
-import wallet from '../../spec/Wallet.json';
-import {render, TestComponent} from '../../test/setup';
 
-describe('withWalletOrdersQuery', ()=>{
+describe.skip('withWalletOrdersQuery', ()=>{
   it('should compose withWalletOrdersQuery', ()=>{
     expect(withWalletOrdersQuery).toBeInstanceOf(Function);
 

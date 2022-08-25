@@ -5,7 +5,7 @@ import {
 } from './useAssetOrderbookQuery.js';
 import {wrapper} from '../../test/setup.js';
 
-describe('useAssetOrderbookQuery', () => {
+describe.skip('useAssetOrderbookQuery', () => {
   it('should fail on invalid asset id', ()=>{
     const {result} = renderHook(() => useAssetOrderbookQuery(
         {asset: {}},
