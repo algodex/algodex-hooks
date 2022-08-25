@@ -9,6 +9,9 @@ import {
   withWalletTradeHistoryQuery,
 } from './useWalletTradeHistoryQuery.js';
 
+/**
+ * Skipped this test
+*/
 describe.skip('withWalletTradeHistoryQuery', ()=>{
   it('should compose withWalletTradeHistoryQuery', ()=>{
     expect(withWalletTradeHistoryQuery).toBeInstanceOf(Function);
