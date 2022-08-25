@@ -124,8 +124,10 @@ export function sortByASAPrice(a, b) {
 export function getBidAskSpread(orderBook) {
   const {buyOrders, sellOrders} = orderBook;
 
-  const bidPrice = buyOrders.sort(sortByASAPrice)?.[0]?.formattedPrice || 0;
-  const askPrice = sellOrders.sort(sortByASAPrice)?.[0]?.formattedPrice || 0;
+  const bidPrice = buyOrders.sort(
+      (a, b) => b.asaPrice - a.asaPrice)?.[0]?.formattedPrice || 0;
+  const askPrice = sellOrders.sort(
+      (a, b) => a.asaPrice - b.asaPrice)?.[0]?.formattedPrice || 0;
 
   const bid = floatToFixed(bidPrice);
   const ask = floatToFixed(askPrice);
