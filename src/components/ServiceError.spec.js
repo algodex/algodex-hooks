@@ -22,6 +22,16 @@ const tests = [
     flex: false,
   },
 ];
+beforeEach(() => {
+  jest.spyOn(console, 'error');
+  // @ts-ignore jest.spyOn adds this functionallity
+  console.error.mockImplementation(() => null);
+});
+
+afterEach(() => {
+  // @ts-ignore jest.spyOn adds this functionallity
+  console.error.mockRestore();
+});
 describe('Service Error', () => {
   tests.map((props)=>{
     it('should render flex contaienr', ()=>{

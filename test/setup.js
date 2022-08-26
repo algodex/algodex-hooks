@@ -5,6 +5,7 @@ import {Provider} from '../src/components/AlgodexContext.js';
 import React from 'react';
 import {matchers} from '@emotion/jest';
 import {render} from '@testing-library/react';
+
 expect.extend(matchers);
 const queryClient = new QueryClient();
 /**
@@ -48,7 +49,6 @@ function makeApi() {
  * Example Test Component
  * @param {Object} props
  * @return {JSX.Element}
- * @constructor
  */
 export const TestComponent = (props)=><div data-testid="test">{props}</div>;
 
