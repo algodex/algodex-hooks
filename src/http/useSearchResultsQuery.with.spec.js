@@ -1,8 +1,8 @@
-import {TestComponent, render} from '../../test/setup';
-
 /**
  * @jest-environment jsdom
  */
+import {TestComponent, render} from '../../test/setup';
+
 import React from 'react';
 import asset from '../../spec/Asset.json';
 import {

@@ -1,15 +1,15 @@
-import {TestComponent, render} from '../../test/setup';
-
 /**
  * @jest-environment jsdom
  */
+import {TestComponent, render} from '../../test/setup';
+
 import React from 'react';
 import asset from '../../spec/Asset.json';
 import {
   withAssetPriceQuery,
 } from './useAssetPriceQuery.js';
 
-describe.skip('withAssetPriceQuery', ()=>{
+describe('withAssetPriceQuery', ()=>{
   it('should compose withAssetPriceQuery', ()=>{
     expect(withAssetPriceQuery).toBeInstanceOf(Function);
 

@@ -1,12 +1,12 @@
+/**
+ * @jest-environment jsdom
+ */
 import {TestComponent, render} from '../../test/setup';
 import {
   withAlgorandPriceQuery,
   withExplorerAssetInfo,
 } from './useAlgoExplorer.js';
 
-/**
- * @jest-environment jsdom
- */
 import React from 'react';
 import asset from '../../spec/Asset.json';
 
