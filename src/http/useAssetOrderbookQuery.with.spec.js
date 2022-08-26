@@ -9,7 +9,7 @@ import {
   withAssetOrderbookQuery,
 } from './useAssetOrderbookQuery.js';
 
-describe.skip('withAssetOrderbookQuery', ()=>{
+describe('withAssetOrderbookQuery', ()=>{
   it('should compose withAssetOrderbookQuery', ()=>{
     expect(withAssetOrderbookQuery).toBeInstanceOf(Function);
 
