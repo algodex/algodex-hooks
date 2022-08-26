@@ -1,12 +1,13 @@
+import {TestComponent, render} from '../../test/setup';
+
 /**
  * @jest-environment jsdom
  */
 import React from 'react';
+import wallet from '../../spec/Wallet.json';
 import {
   withWalletAssetsQuery,
 } from './useWalletAssetsQuery.js';
-import wallet from '../../spec/Wallet.json';
-import {render, TestComponent} from '../../test/setup';
 
 describe('withWalletAssetsQuery', ()=>{
   it('should compose withWalletAssetsQuery', ()=>{

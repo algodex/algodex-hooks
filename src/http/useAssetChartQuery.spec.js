@@ -1,14 +1,15 @@
-import {renderHook} from '@testing-library/react-hooks';
+import '../../test/nock';
+
 import {
-  useAssetChartQuery,
   sortByASAPrice,
   sortPriceByTime,
+  useAssetChartQuery,
 } from './useAssetChartQuery.js';
-import {wrapper} from '../../test/setup.js';
-import '../../test/nock';
 
 import asset from '../../spec/Asset.json';
 import chart from '../../spec/Chart.json';
+import {renderHook} from '@testing-library/react-hooks';
+import {wrapper} from '../../test/setup.js';
 
 describe('Fetch Asset Chart', () => {
   it('should fetch asset chart', async () => {

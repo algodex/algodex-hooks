@@ -1,12 +1,13 @@
+import {TestComponent, render} from '../../test/setup';
+
 /**
  * @jest-environment jsdom
  */
 import React from 'react';
+import asset from '../../spec/Asset.json';
 import {
   withSearchResultsQuery,
 } from './useSearchResultsQuery.js';
-import asset from '../../spec/Asset.json';
-import {render, TestComponent} from '../../test/setup';
 
 describe('withSearchResultsQuery', ()=>{
   it('should compose withSearchResultsQuery', ()=>{
