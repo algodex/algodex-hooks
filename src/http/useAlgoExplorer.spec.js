@@ -50,7 +50,7 @@ describe('useAlgoExplorer', () => {
     );
     await waitFor(() => {
       return result.current.isSuccess;
-    }, {interval: 1000});
+    }, {interval: 10000});
 
     expect(result.current.isError).toBe(false);
     expect(result.current.isLoading).toBe(false);
