@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@algodex/algodex-sdk@2.0.0-next":
+"@algodex/algodex-sdk@2.0.0-next.15":
   version "2.0.0-next.15"
   resolved "https://npm.pkg.github.com/download/@algodex/algodex-sdk/2.0.0-next.15/5bcb2a7771e5715ae0f3ee8bf487f9d4a045880b#5bcb2a7771e5715ae0f3ee8bf487f9d4a045880b"
   integrity sha512-67HaHsnVi2qOcFSNbDE6q6H+RBdULtqbtESKd0byH9T559Cg1G0BOw3moTImoxVpbfim28FP5/5X3vzbbY2FLg==
