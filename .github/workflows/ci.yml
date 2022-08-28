@@ -41,7 +41,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           repository: algodex/algodex-sdk
-          ref: "v2.0.0",
+          ref: "next",
           path: ./node_modules/@algodex/algodex-sdk
           token: ${{ secrets.GH_TOKEN }}
       - run: cd ./node_modules/@algodex/algodex-sdk && yarn
