@@ -7,7 +7,7 @@ import nock from 'nock';
 import {renderHook} from '@testing-library/react-hooks';
 import {wrapper} from '../../test/setup.js';
 
-describe('useAlgoExplorer', () => {
+describe.skip('useAlgoExplorer', () => {
   it('should fetch asset orders alone', async () => {
     const asset = {
       id: 69410904,

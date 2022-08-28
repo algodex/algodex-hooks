@@ -15,12 +15,16 @@ const queryClient = new QueryClient();
 const properties = {
   config: {
     'algod': {
-      'uri': 'https://testnet.algoexplorerapi.io',
+      'uri': 'https://node.testnet.algoexplorerapi.io',
       'token': '',
     },
     'indexer': {
       'uri': 'https://algoindexer.testnet.algoexplorerapi.io',
       'token': '',
+    },
+    'explorer': {
+      'uri': 'https://indexer.testnet.algoexplorerapi.io',
+      'port': '',
     },
     'dexd': {
       'uri': 'https://testnet.algodex.com/algodex-backend',
