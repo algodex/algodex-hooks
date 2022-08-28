@@ -27,7 +27,7 @@ jobs:
     needs: [ lint ]
     steps:
 #      - uses: actions/checkout@v2
-      - uses: actions/checkout@v2.0.0-next.15
+      - uses: actions/checkout@v2.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install dependencies
