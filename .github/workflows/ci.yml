@@ -37,7 +37,7 @@ jobs:
         env:
           NPM_AUTH_TOKEN: ${{ secrets.GH_PKG_READONLY }}
       - run: rm -rf ./node_modules/@algodex/algodex-sdk
-      - uses: actions/checkout@v2.0.0
+      - uses: actions/checkout@v2.0.0-next.15
         with:
           repository: algodex/algodex-sdk
           ref: next
