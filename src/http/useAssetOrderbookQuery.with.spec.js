@@ -1,12 +1,14 @@
 /**
  * @jest-environment jsdom
  */
+
+import {TestComponent, render} from '../../test/setup';
+
 import React from 'react';
+import asset from '../../spec/Asset.json';
 import {
   withAssetOrderbookQuery,
 } from './useAssetOrderbookQuery.js';
-import asset from '../../spec/Asset.json';
-import {render, TestComponent} from '../../test/setup';
 
 describe('withAssetOrderbookQuery', ()=>{
   it('should compose withAssetOrderbookQuery', ()=>{

@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@algodex/algodex-sdk@2.0.0-next.15":
-  version "2.0.0-next.15"
-  resolved "https://npm.pkg.github.com/download/@algodex/algodex-sdk/2.0.0-next.15/1e623285e87cc58244236bd3d8db28f844f361248d1f76fd9849a761ec59b932#5bcb2a7771e5715ae0f3ee8bf487f9d4a045880b"
-  integrity sha512-67HaHsnVi2qOcFSNbDE6q6H+RBdULtqbtESKd0byH9T559Cg1G0BOw3moTImoxVpbfim28FP5/5X3vzbbY2FLg==
+"@algodex/algodex-sdk@2.0.0":
+  version "2.0.0"
+  resolved "https://npm.pkg.github.com/download/@algodex/algodex-sdk/2.0.0/285916fd7968f45bb1c8ee4a22f23464f873184c#285916fd7968f45bb1c8ee4a22f23464f873184c"
+  integrity sha512-mUM1unQGerngVlPUbAYyKOYKFqjiI+I3aerteQ7dzWYObOYxu7TsmA4ojJp2OE2YJKh1dpEyvlTF9E4WC97atA==
   dependencies:
     ajv "^8.10.0"
     ajv-formats "^2.1.1"

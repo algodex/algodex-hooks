@@ -13,7 +13,7 @@ const interfaces = [
   'useWalletOrdersQuery',
   'useWalletTradeHistoryQuery',
 ];
-it('should have the main effect', ()=>{
+it.skip('should have the main effect', ()=>{
   interfaces.forEach((i)=>{
     expect(cjs[i]).toBeInstanceOf(Function);
   });

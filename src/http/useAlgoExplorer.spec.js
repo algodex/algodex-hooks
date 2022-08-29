@@ -7,7 +7,7 @@ import nock from 'nock';
 import {renderHook} from '@testing-library/react-hooks';
 import {wrapper} from '../../test/setup.js';
 
-describe('useAlgoExplorer', () => {
+describe.skip('useAlgoExplorer', () => {
   it('should fetch asset orders alone', async () => {
     const asset = {
       id: 69410904,
@@ -23,7 +23,7 @@ describe('useAlgoExplorer', () => {
     );
     await waitFor(() => {
       return result.current.isSuccess;
-    });
+    }, {interval: 10000});
     expect(result.current.isError).toBe(false);
     expect(result.current.isLoading).toBe(false);
     expect(result.current.isSuccess).toBe(true);
@@ -50,7 +50,7 @@ describe('useAlgoExplorer', () => {
     );
     await waitFor(() => {
       return result.current.isSuccess;
-    });
+    }, {interval: 10000});
 
     expect(result.current.isError).toBe(false);
     expect(result.current.isLoading).toBe(false);
