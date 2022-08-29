@@ -3,11 +3,11 @@
  */
 
 import React from 'react';
-import withQuery from './withQuery.js';
+import ServiceError from '../components/ServiceError';
+import Spinner from '../components/Spinner';
 import {render} from '../../test/setup.js';
 import {useQuery} from 'react-query';
-import Spinner from '../components/Spinner';
-import ServiceError from '../components/ServiceError';
+import withQuery from './withQuery.js';
 
 describe('withQuery High Order Component', () => {
   it('should compose a component with a react-query', async () => {

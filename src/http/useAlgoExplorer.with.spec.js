@@ -1,13 +1,14 @@
 /**
  * @jest-environment jsdom
  */
-import React from 'react';
+import {TestComponent, render} from '../../test/setup';
 import {
   withAlgorandPriceQuery,
   withExplorerAssetInfo,
 } from './useAlgoExplorer.js';
+
+import React from 'react';
 import asset from '../../spec/Asset.json';
-import {render, TestComponent} from '../../test/setup';
 
 describe('withAlgorandPriceQuery', ()=>{
   it('should compose withAlgorandPriceQuery', ()=>{

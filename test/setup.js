@@ -1,9 +1,11 @@
-import React from 'react';
 import {QueryClient, QueryClientProvider} from 'react-query';
-import {render} from '@testing-library/react';
+
 import AlgodexApi from '@algodex/algodex-sdk/lib/AlgodexApi.js';
 import {Provider} from '../src/components/AlgodexContext.js';
+import React from 'react';
 import {matchers} from '@emotion/jest';
+import {render} from '@testing-library/react';
+
 expect.extend(matchers);
 const queryClient = new QueryClient();
 /**
@@ -13,12 +15,16 @@ const queryClient = new QueryClient();
 const properties = {
   config: {
     'algod': {
-      'uri': 'https://testnet.algoexplorerapi.io',
+      'uri': 'https://node.testnet.algoexplorerapi.io',
       'token': '',
     },
     'indexer': {
       'uri': 'https://algoindexer.testnet.algoexplorerapi.io',
       'token': '',
+    },
+    'explorer': {
+      'uri': 'https://indexer.testnet.algoexplorerapi.io',
+      'port': '',
     },
     'dexd': {
       'uri': 'https://testnet.algodex.com/algodex-backend',
@@ -47,7 +53,6 @@ function makeApi() {
  * Example Test Component
  * @param {Object} props
  * @return {JSX.Element}
- * @constructor
  */
 export const TestComponent = (props)=><div data-testid="test">{props}</div>;
 

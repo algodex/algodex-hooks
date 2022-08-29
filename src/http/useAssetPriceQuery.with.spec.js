@@ -1,12 +1,13 @@
 /**
  * @jest-environment jsdom
  */
+import {TestComponent, render} from '../../test/setup';
+
 import React from 'react';
+import asset from '../../spec/Asset.json';
 import {
   withAssetPriceQuery,
 } from './useAssetPriceQuery.js';
-import asset from '../../spec/Asset.json';
-import {render, TestComponent} from '../../test/setup';
 
 describe('withAssetPriceQuery', ()=>{
   it('should compose withAssetPriceQuery', ()=>{

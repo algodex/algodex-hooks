@@ -1,12 +1,13 @@
 /**
  * @jest-environment jsdom
  */
+import {TestComponent, render} from '../../test/setup';
+
 import React from 'react';
+import asset from '../../spec/Asset.json';
 import {
   withAssetTradeHistoryQuery,
 } from './useAssetTradeHistoryQuery.js';
-import asset from '../../spec/Asset.json';
-import {render, TestComponent} from '../../test/setup';
 
 describe('withAssetTradeHistoryQuery', ()=>{
   it('should compose withAssetTradeHistoryQuery', ()=>{

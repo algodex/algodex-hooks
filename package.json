@@ -1,6 +1,6 @@
 {
   "name": "@algodex/algodex-hooks",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "main": "dist/cjs/index.js",
   "license": "UNLICENSED",
   "browserslist": [
@@ -23,7 +23,7 @@
     "millify": "^4.0.0"
   },
   "peerDependencies": {
-    "@algodex/algodex-sdk": "2.0.0-next.15",
+    "@algodex/algodex-sdk": "2.0.0",
     "@randlabs/myalgo-connect": "^1.1.3",
     "@walletconnect/client": "^1.7.7",
     "algosdk": "^1.15.0",
@@ -32,7 +32,7 @@
     "react-query": "^3.34.19"
   },
   "devDependencies": {
-    "@algodex/algodex-sdk": "2.0.0-next.15",
+    "@algodex/algodex-sdk": "2.0.0",
     "@babel/core": "^7.17.8",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
