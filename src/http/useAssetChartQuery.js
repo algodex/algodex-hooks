@@ -10,7 +10,6 @@ import {useQuery} from 'react-query';
 import withQuery from '../utils/withQuery';
 
 const refetchInterval = 3000;
-
 const components = {
   Loading: Spinner,
   ServiceError,
