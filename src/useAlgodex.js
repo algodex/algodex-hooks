@@ -1,5 +1,5 @@
-import {useContext} from 'react';
 import {AlgodexContext} from './components/AlgodexContext.js';
+import {useContext} from 'react';
 
 /**
  * @typedef {Object} AlgodexAPIHook
@@ -29,7 +29,7 @@ export default function useAlgodex() {
     typeof algodex.wallet !== 'undefined' &&
     typeof algodex.wallet.address !== 'undefined' &&
     typeof algodex.wallet.connector !== 'undefined' &&
-    algodex.wallet.connector.connected;
+    algodex.wallet.connector._connected;
 
   // Return Algodex
   return {
