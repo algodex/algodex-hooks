@@ -1,5 +1,4 @@
 # @algodex/components
-
 All modules must follow the following standards:
 
 
