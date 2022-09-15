@@ -29,7 +29,7 @@ export default function useAlgodex() {
     typeof algodex.wallet !== 'undefined' &&
     typeof algodex.wallet.address !== 'undefined' &&
     typeof algodex.wallet.connector !== 'undefined' &&
-    (algodex.wallet.connector._connected || algodex.wallet.connector.connected);
+    algodex.wallet.connector.connected;
 
   // Return Algodex
   return {
