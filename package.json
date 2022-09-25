@@ -1,6 +1,6 @@
 {
   "name": "@algodex/algodex-hooks",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "main": "dist/cjs/index.js",
   "license": "AGPL-3.0-or-later",
   "browserslist": [
