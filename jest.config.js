@@ -16,7 +16,8 @@
 
 module.exports = {
   setupFilesAfterEnv: ['./jest.setup.js'],
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
+  testURL: 'https://testnet.algodex.com/algodex-backend',
   coverageThreshold: {
     // TODO: Raise confidence
     global: {
