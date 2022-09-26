@@ -17,7 +17,6 @@
 /**
  * @jest-environment jsdom
  */
-
 import {TestComponent, render} from '../../test/setup';
 
 import React from 'react';
