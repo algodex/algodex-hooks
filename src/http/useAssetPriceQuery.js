@@ -42,9 +42,10 @@ export function useAssetPriceQuery({
 } = {}) {
   const {http} = useAlgodex();
   const {id} = algorandAsset;
+  const assetPrice = http.dexd.fetchAssetPrice(id);
   const {data: dexAsset, ...rest} = useQuery(
       ['assetPrice', {id}],
-      () => http.dexd.fetchAssetPrice(id),
+      () => typeof assetPrice !== 'undefined' ? assetPrice : {},
       options,
   );
   const asset = useMemo(() => {
