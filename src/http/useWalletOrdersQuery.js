@@ -55,12 +55,25 @@ export function useWalletOrdersQuery({
 }) {
   const {address} = wallet;
   const {http} = useAlgodex();
+
+  // FIXME: The asset names are also fetched from the search results
+  // as a backup method.
+  // This is due to some 1.0 server-side issues where the asset names
+  // are not always fetched.
+  const {data: assetSearchData} = useQuery(
+      ['searchResults'],
+      () => http.dexd.searchAssets(''),
+      options,
+  );
+
   const {data, ...rest} = useQuery(
       ['walletOrders', {address}],
       () => http.dexd.fetchWalletOrders(address),
       options,
   );
-  const orders = useMemo(() => http.dexd.mapOpenOrdersData(data), [data]);
+
+  const orders = useMemo(() => http.dexd.mapOpenOrdersData(data,
+      assetSearchData), [data, assetSearchData]);
   return {data: {orders}, ...rest};
 }
 
