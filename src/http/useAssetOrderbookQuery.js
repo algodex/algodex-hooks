@@ -54,7 +54,6 @@ export function useAssetOrderbookQuery({
     notifyOnChangeProps: ['data', 'error'],
   },
 } = {}) {
-  // console.log(`useAssetOrderbookQuery(${JSON.stringify({asset})})`);
   const {http} = useAlgodex();
   const {id, decimals} = asset;
   if (typeof id === 'undefined') {
@@ -64,9 +63,6 @@ export function useAssetOrderbookQuery({
     throw new TypeError('Must have valid decimals!');
   }
 
-  // const [sell, setSellOrders] = useState([]);
-  // const [buy, setBuyOrders] = useState([]);
-
   // Orderbook Query
   const {data, isLoading, ...rest} = useQuery(
       ['assetOrders', {id}],
@@ -74,24 +70,15 @@ export function useAssetOrderbookQuery({
       options,
   );
 
-  // const etag = data?.etag || '';
   const [etag, setEtag] = useState('');
-  const [returnData, setRetData] = useState({data:
-    {orders: {sell: [], buy: []}, isLoading}, isLoading, ...rest});
-
-  console.log('etag: ' + etag);
 
   useMemo(() => {
     if (data?.etag !== etag) {
-      console.log('tsetting etag ' + etag + ' ' + data?.etag);
       setEtag(data?.etag || '');
     }
   }, [data, etag]);
 
-  // Massage Orders
-  useMemo(() => {
-    console.log('inside useMemo due to data change');
-    console.log('zetag: ' + etag);
+  const retdata = useMemo(() => {
     if (
       data &&
       !isLoading &&
@@ -104,11 +91,13 @@ export function useAssetOrderbookQuery({
       const buy = http.dexd.aggregateOrders(
           data.buyASAOrdersInEscrow, decimals, 'buy',
       );
-      setRetData({data: {orders: {sell, buy}, isLoading}, isLoading, ...rest});
+      return {data: {orders: {sell, buy}, isLoading}, isLoading, ...rest};
     }
+    return {data:
+      {orders: {sell: [], buy: []}, isLoading}, isLoading, ...rest};
   }, [etag]);
 
-  return returnData;
+  return retdata;
   // Return OrderBook
 }
 
