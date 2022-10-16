@@ -54,6 +54,7 @@ export function useAssetPriceQuery({
   asset: algorandAsset,
   options = {
     refetchInterval,
+    notifyOnChangeProps: ['data', 'error'],
   },
 } = {}) {
   const {http} = useAlgodex();
@@ -63,14 +64,17 @@ export function useAssetPriceQuery({
       () => http.dexd.fetchAssetPrice(id),
       options,
   );
-  const asset = useMemo(() => {
-    return {
+
+  const retdata = useMemo(() => {
+    const asset = {
       ...algorandAsset,
       price_info: dexAsset,
     };
+
+    return {data: {asset}, ...rest};
   }, [algorandAsset, dexAsset]);
 
-  return {data: {asset}, ...rest};
+  return retdata;
 }
 
 export default useAssetPriceQuery;

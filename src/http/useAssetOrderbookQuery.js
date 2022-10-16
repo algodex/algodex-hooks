@@ -14,7 +14,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {useEffect, useState} from 'react';
+import {useMemo, useState} from 'react';
 import {useQuery} from 'react-query';
 const refetchInterval = 3000;
 import withQuery from '../utils/withQuery';
@@ -51,9 +51,9 @@ export function useAssetOrderbookQuery({
   asset,
   options = {
     refetchInterval,
+    notifyOnChangeProps: ['data', 'error'],
   },
 } = {}) {
-  // console.log(`useAssetOrderbookQuery(${JSON.stringify({asset})})`);
   const {http} = useAlgodex();
   const {id, decimals} = asset;
   if (typeof id === 'undefined') {
@@ -63,9 +63,6 @@ export function useAssetOrderbookQuery({
     throw new TypeError('Must have valid decimals!');
   }
 
-  const [sell, setSellOrders] = useState([]);
-  const [buy, setBuyOrders] = useState([]);
-
   // Orderbook Query
   const {data, isLoading, ...rest} = useQuery(
       ['assetOrders', {id}],
@@ -73,29 +70,35 @@ export function useAssetOrderbookQuery({
       options,
   );
 
-  // Massage Orders
-  useEffect(() => {
+  const [etag, setEtag] = useState('');
+
+  useMemo(() => {
+    if (data?.etag !== etag) {
+      setEtag(data?.etag || '');
+    }
+  }, [data, etag]);
+
+  const retdata = useMemo(() => {
     if (
       data &&
       !isLoading &&
       typeof data.sellASAOrdersInEscrow !== 'undefined' &&
       typeof data.buyASAOrdersInEscrow !== 'undefined'
     ) {
-      setSellOrders(
-          http.dexd.aggregateOrders(
-              data.sellASAOrdersInEscrow, decimals, 'sell',
-          ),
+      const sell = http.dexd.aggregateOrders(
+          data.sellASAOrdersInEscrow, decimals, 'sell',
       );
-      setBuyOrders(
-          http.dexd.aggregateOrders(
-              data.buyASAOrdersInEscrow, decimals, 'buy',
-          ),
+      const buy = http.dexd.aggregateOrders(
+          data.buyASAOrdersInEscrow, decimals, 'buy',
       );
+      return {data: {orders: {sell, buy}, isLoading}, isLoading, ...rest};
     }
-  }, [isLoading, data, setSellOrders, setBuyOrders, decimals]);
+    return {data:
+      {orders: {sell: [], buy: []}, isLoading}, isLoading, ...rest};
+  }, [etag]);
 
+  return retdata;
   // Return OrderBook
-  return {data: {orders: {sell, buy}, isLoading}, isLoading, ...rest};
 }
 
 export default useAssetOrderbookQuery;
