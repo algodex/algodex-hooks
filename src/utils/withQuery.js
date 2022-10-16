@@ -14,7 +14,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React from 'react';
+import React, {useMemo} from 'react';
 import {useQuery} from 'react-query';
 import {isUndefined} from 'lodash/lang';
 
@@ -46,9 +46,17 @@ export default function withQuery(Component, {hook = useQuery, components}) {
    */
   function withQueryWrapper(props) {
     const {isSuccess, isLoading, isError, data, error} = hook(props);
-    if (isSuccess) return <Component {...props} {...data} />;
-    if (isLoading) return <Loading {...props} {...data} />;
-    if (isError) return <ServiceError {...data} message={error.message} />;
+    const successMemo = useMemo(() => <Component {...props} {...data} />,
+        [props, data]);
+    const loadingMemo = useMemo(() => <Loading {...props} {...data} />,
+        [props, data]);
+    const errorMemo = useMemo(() =>
+      <ServiceError {...data} message={error?.message} />,
+    [error, data]);
+
+    if (isSuccess) return successMemo;
+    if (isLoading) return loadingMemo;
+    if (isError) return errorMemo;
   }
 
   withQueryWrapper.getInitialProps = Component.getInitialProps;
