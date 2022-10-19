@@ -28,3 +28,6 @@ export {
 } from './useWallets';
 export * from './components/index.js';
 export * from './http/index.js';
+export {
+  default as withQuery,
+} from './utils/withQuery';
