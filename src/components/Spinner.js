@@ -92,17 +92,19 @@ Svg.defaultProps = {
 export function Spinner({size, color, flex, ...rest}) {
   if (flex) {
     return (
-      <FlexContainer data-testid="spinner-flex-container">
-        <Svg size={size} color={color} {...rest} data-testid="spinner-svg">
-          <circle cx="25" cy="25" r="20" />
-        </Svg>
-      </FlexContainer>
+      <></>
+      // <FlexContainer data-testid="spinner-flex-container">
+      //   {/* <Svg size={size} color={color} {...rest} data-testid="spinner-svg">
+      //     <circle cx="25" cy="25" r="20" />
+      //   </Svg> */}
+      // </FlexContainer>
     );
   } else {
     return (
-      <Svg size={size} color={color} {...rest} data-testid="spinner-svg">
-        <circle cx="25" cy="25" r="20" />
-      </Svg>
+      <></>
+      // <Svg size={size} color={color} {...rest} data-testid="spinner-svg">
+      //   <circle cx="25" cy="25" r="20" />
+      // </Svg>
     );
   }
 }
